@@ -1,11 +1,21 @@
 from django.urls import path
 from django.http import JsonResponse
 
+import os
+
 def api_home(request):
     return JsonResponse({
         "status": "running",
         "app": "ConvoGate API",
         "message": "Backend API is up and running successfully!"
+    })
+
+def test_env(request):
+    keys = list(os.environ.keys())
+    return JsonResponse({
+        "environment_keys": keys,
+        "DB_HOST_present": "DB_HOST" in os.environ,
+        "DB_HOST_value_prefix": os.environ.get("DB_HOST", "NOT_FOUND")[:4] if "DB_HOST" in os.environ else "NOT_FOUND"
     })
 
 from .views.signup_view import signup_view
@@ -41,6 +51,7 @@ from .views.expense_views import create_expense_view, expense_action_view, get_e
 
 urlpatterns = [
     path("", api_home),
+    path("test-env/", test_env),
     path("auth/change-password/", change_password_view),  # ✅ FIXED
     path("signup/", signup_view),
     path("login/", login_view),
