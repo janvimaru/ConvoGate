@@ -11,11 +11,21 @@ def api_home(request):
     })
 
 def test_env(request):
-    keys = list(os.environ.keys())
+    def get_info(key):
+        val = os.environ.get(key)
+        if val is None:
+            return "NOT_SET"
+        return {
+            "length": len(val),
+            "prefix": val[:3] if key != "DB_PASSWORD" else (val[:1] + "**" if val else "")
+        }
+
     return JsonResponse({
-        "environment_keys": keys,
-        "DB_HOST_present": "DB_HOST" in os.environ,
-        "DB_HOST_value_prefix": os.environ.get("DB_HOST", "NOT_FOUND")[:4] if "DB_HOST" in os.environ else "NOT_FOUND"
+        "DB_HOST": get_info("DB_HOST"),
+        "DB_PORT": get_info("DB_PORT"),
+        "DB_NAME": get_info("DB_NAME"),
+        "DB_USER": get_info("DB_USER"),
+        "DB_PASSWORD": get_info("DB_PASSWORD"),
     })
 
 from .views.signup_view import signup_view
