@@ -1,6 +1,16 @@
+---
+title: ConvoGate Backend
+emoji: 💬
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # ConvoGate
 
 A full-stack real-time communication platform built using React, Django, Django Channels, WebSockets, JWT, and MySQL.
+
 
 ConvoGate enables users to communicate through private and group conversations while providing additional collaboration features such as expense management, festival greeting sharing, file exchange, and customizable user settings.
 
