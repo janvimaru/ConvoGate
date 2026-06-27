@@ -1,4 +1,12 @@
 from django.urls import path
+from django.http import JsonResponse
+
+def api_home(request):
+    return JsonResponse({
+        "status": "running",
+        "app": "ConvoGate API",
+        "message": "Backend API is up and running successfully!"
+    })
 
 from .views.signup_view import signup_view
 from .views.login_view import login_view
@@ -32,6 +40,7 @@ from .views.festival_views import (
 from .views.expense_views import create_expense_view, expense_action_view, get_expense_view  # ✅ ADD
 
 urlpatterns = [
+    path("", api_home),
     path("auth/change-password/", change_password_view),  # ✅ FIXED
     path("signup/", signup_view),
     path("login/", login_view),
