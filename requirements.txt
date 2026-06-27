@@ -13,3 +13,5 @@ websockets==16.0
 cryptography==46.0.3
 requests==2.32.5
 whitenoise==6.7.0
+deep-translator==1.11.4
+openai==2.21.0
