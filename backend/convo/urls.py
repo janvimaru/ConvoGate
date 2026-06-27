@@ -8,26 +8,6 @@ def api_home(request):
         "message": "Backend API is up and running successfully!"
     })
 
-import os
-
-def test_env(request):
-    def get_info(key):
-        val = os.environ.get(key)
-        if val is None:
-            return "NOT_SET"
-        return {
-            "length": len(val),
-            "prefix": val[:3] if key != "MYSQL_PASSWORD" else (val[:1] + "**" if val else "")
-        }
-
-    return JsonResponse({
-        "MYSQL_HOST": get_info("MYSQL_HOST"),
-        "MYSQL_PORT": get_info("MYSQL_PORT"),
-        "MYSQL_DATABASE": get_info("MYSQL_DATABASE"),
-        "MYSQL_USER": get_info("MYSQL_USER"),
-        "MYSQL_PASSWORD": get_info("MYSQL_PASSWORD"),
-    })
-
 from .views.signup_view import signup_view
 from .views.login_view import login_view
 from .views.room_views import room_view, save_quick_chat_view
@@ -61,7 +41,6 @@ from .views.expense_views import create_expense_view, expense_action_view, get_e
 
 urlpatterns = [
     path("", api_home),
-    path("test-env/", test_env),
     path("auth/change-password/", change_password_view),  # ✅ FIXED
     path("signup/", signup_view),
     path("login/", login_view),
