@@ -18,14 +18,7 @@ from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
-
-def get_env_or_fallback(key, default=None):
-    val = os.getenv(key)
-    if val is None or val.strip() == "":
-        return default
-    return val
-
-GEMINI_API_KEY = get_env_or_fallback("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 
-SECRET_KEY = get_env_or_fallback("SECRET_KEY", "l#b_r_a@pek^a%6-b^^+u-nvz70&z6w(ih7&mj_^zd(&rq9=bh")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = get_env_or_fallback("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "False") == "True"
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
@@ -110,9 +103,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  # Use 587 for TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = get_env_or_fallback("EMAIL_HOST_USER", "janvimaru195@gmail.com")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 # Use an App Password here
-EMAIL_HOST_PASSWORD = get_env_or_fallback("EMAIL_HOST_PASSWORD", "emue nfzh ssuw tubs")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Default sender address
 
 
@@ -140,11 +133,11 @@ TEMPLATES = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": get_env_or_fallback("DB_NAME", "railway"),
-        "USER": get_env_or_fallback("DB_USER", "root"),
-        "PASSWORD": get_env_or_fallback("DB_PASSWORD", "wGuuECtkSDNlOMPtmlQDHuXApFbdJPSG"),
-        "HOST": get_env_or_fallback("DB_HOST", "reseau.proxy.rlwy.net"),
-        "PORT": get_env_or_fallback("DB_PORT", "56310"),
+        "NAME": os.getenv("MYSQL_DATABASE") or os.getenv("DB_NAME"),
+        "USER": os.getenv("MYSQL_USER") or os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD") or os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("MYSQL_HOST") or os.getenv("DB_HOST"),
+        "PORT": os.getenv("MYSQL_PORT") or os.getenv("DB_PORT", "3306"),
     }
 }
 
@@ -198,7 +191,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-REDIS_URL = get_env_or_fallback("REDIS_URL")
+REDIS_URL = os.getenv("REDIS_URL")
 
 if REDIS_URL:
     CHANNEL_LAYERS = {

@@ -1,14 +1,14 @@
 from django.urls import path
 from django.http import JsonResponse
 
-import os
-
 def api_home(request):
     return JsonResponse({
         "status": "running",
         "app": "ConvoGate API",
         "message": "Backend API is up and running successfully!"
     })
+
+import os
 
 def test_env(request):
     def get_info(key):
@@ -17,26 +17,15 @@ def test_env(request):
             return "NOT_SET"
         return {
             "length": len(val),
-            "prefix": val[:3] if key != "DB_PASSWORD" else (val[:1] + "**" if val else "")
+            "prefix": val[:3] if key != "MYSQL_PASSWORD" else (val[:1] + "**" if val else "")
         }
 
-    # Search for any .env files in the container
-    found_files = []
-    try:
-        for root, dirs, files in os.walk('.'):
-            for file in files:
-                if '.env' in file or 'env' in file.lower():
-                    found_files.append(os.path.join(root, file))
-    except Exception as e:
-        found_files = [str(e)]
-
     return JsonResponse({
-        "DB_HOST": get_info("DB_HOST"),
-        "DB_PORT": get_info("DB_PORT"),
-        "DB_NAME": get_info("DB_NAME"),
-        "DB_USER": get_info("DB_USER"),
-        "DB_PASSWORD": get_info("DB_PASSWORD"),
-        "found_env_files": found_files
+        "MYSQL_HOST": get_info("MYSQL_HOST"),
+        "MYSQL_PORT": get_info("MYSQL_PORT"),
+        "MYSQL_DATABASE": get_info("MYSQL_DATABASE"),
+        "MYSQL_USER": get_info("MYSQL_USER"),
+        "MYSQL_PASSWORD": get_info("MYSQL_PASSWORD"),
     })
 
 from .views.signup_view import signup_view
