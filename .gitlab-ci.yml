@@ -1,0 +1,37 @@
+stages:
+  - lint
+  - test
+
+# ==================== STAGE 1: LINTING ====================
+
+# Job A: Check Python code syntax using 'flake8' (No requirements needed!)
+django_lint:
+  stage: lint
+  image: python:3.10-slim
+  script:
+    - cd backend
+    - pip install flake8
+    - flake8 . --exclude=venv,migrations --ignore=E302,E303,W291,W293,F401,W391,E261,E501,E225,E111,E117,E114,F541,E722
+
+# Job B: Check React JavaScript syntax
+react_lint:
+  stage: lint
+  image: node:18-slim
+  script:
+    - cd frontend
+    - npm install
+    - npm run lint --if-present
+
+# ==================== STAGE 2: TESTING ====================
+
+# Job C: Run Django unit tests (Compilers installed before pip)
+django_tests:
+  stage: test
+  image: python:3.10-slim
+  before_script:
+    # Install the OS-level compilers needed to compile mysqlclient on Linux
+    - apt-get update && apt-get install -y gcc default-libmysqlclient-dev pkg-config
+  script:
+    - cd backend
+    - pip install -r requirements.txt
+    - python manage.py test

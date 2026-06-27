@@ -1,0 +1,42 @@
+TABLE messages:
+CREATE TABLE `messages` (
+  `message_id` bigint NOT NULL AUTO_INCREMENT,
+  `room_id` int NOT NULL,
+  `sender_user_id` int NOT NULL,
+  `parent_message_id` bigint DEFAULT NULL,
+  `message_type` enum('text','voice','image','video','document','festival_card','expense','loan') NOT NULL,
+  `content` text,
+  `voice_url` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_edited` tinyint(1) DEFAULT '0',
+  `last_edited_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`message_id`),
+  KEY `fk_parent_msg` (`parent_message_id`),
+  KEY `idx_messages_room_created` (`room_id`,`created_at` DESC),
+  KEY `idx_messages_sender` (`sender_user_id`),
+  CONSTRAINT `fk_parent_msg` FOREIGN KEY (`parent_message_id`) REFERENCES `messages` (`message_id`) ON DELETE SET NULL,
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `chat_rooms` (`room_id`),
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`sender_user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+PROCEDURE sp_message_flow:
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_message_flow`(
+        IN p_action VARCHAR(50),
+        IN p_message_id BIGINT,
+        IN p_room_id INT,
+        IN p_sender_user_id INT,
+        IN p_message_type ENUM('text', 'voice', 'image', 'video', 'document', 'festival_card', 'expense', 'loan'),
+        IN p_content TEXT,
+        IN p_voice_url VARCHAR(255),
+        IN p_parent_message_id BIGINT
+    )
+BEGIN
+        IF p_action = 'send' THEN
+            INSERT INTO messages (room_id, sender_user_id, parent_message_id, message_type, content, voice_url)
+            VALUES (p_room_id, p_sender_user_id, p_parent_message_id, p_message_type, p_content, p_voice_url);
+            
+            -- Mark status as 'sent' for the sender automatically
+            INSERT INTO message_status (message_id, user_id, status)
+            VALUES (LAST_INSERT_ID(), p_sender_user_id, 'sent');
+        END IF;
+    END

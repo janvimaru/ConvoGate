@@ -1,0 +1,177 @@
+:root {
+  /* Light Theme - Clean Professional */
+  --bg-primary: #F7F8FA;
+  --bg-secondary: #FFFFFF;
+  --navbar-bg: #FFFFFF;
+  --sidebar-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
+  --dropdown-bg: rgba(255, 255, 255, 0.98);
+  --surface-light: #FFFFFF;
+  --surface-hover: #F0F2F5;
+  --surface-active: #E4E7EB;
+
+  --text-primary: #1C1F27;
+  --text-secondary: #4A5568;
+  --text-tertiary: #718096;
+
+  --border-light: #E2E8F0;
+
+  /* Violet Brand Palette */
+  --primary: #6B5AED;
+  --primary-gradient-from: #8B5CF6;
+  --primary-gradient-to: #4C1D95;
+  --primary-shadow: rgba(139, 92, 246, 0.3);
+
+  --brand-gradient-from: #8B5CF6;
+  --brand-gradient-to: #4C1D95;
+
+  /* Message Bubbles - Clean & Solid */
+  --own-message-from: #6B5AED;
+  --own-message-to: #6B5AED;
+  /* Solid color for professionalism */
+  --other-message-bg: #F0F2F5;
+
+  /* Room Cards - Subtle Indication */
+  --room-avatar-from: #8B5CF6;
+  --room-avatar-to: #4C1D95;
+  --active-room-from: #8B5CF6;
+  --active-room-to: #4C1D95;
+  --active-room-shadow: rgba(139, 92, 246, 0.2);
+
+  /* Avatar */
+  --avatar-from: #846ED8;
+  --avatar-to: #6B5AED;
+
+  /* Shadows */
+  --shadow-heavy: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme - Charcoal Elegance */
+  --bg-primary: #1A1D21;
+  --bg-secondary: #2C3138;
+  --navbar-bg: #1A1D21;
+  --sidebar-bg: #22262B;
+  --input-bg: #2C3138;
+  --dropdown-bg: #2C3138;
+  --surface-light: #2C3138;
+  --surface-hover: #363C45;
+  --surface-active: #404852;
+
+  --text-primary: #E8EAED;
+  --text-secondary: #A0AEC0;
+  --text-muted: #718096;
+  --text-tertiary: #4A5568;
+
+  --border-light: #363C45;
+
+  /* Colors */
+  --primary: #6B5AED;
+  --primary-gradient-from: #8B5CF6;
+  --primary-gradient-to: #4C1D95;
+  --primary-shadow: rgba(0, 0, 0, 0.5);
+
+  --brand-gradient-from: #8B5CF6;
+  --brand-gradient-to: #4C1D95;
+
+  /* Message Bubbles */
+  --own-message-from: #6B5AED;
+  --own-message-to: #6B5AED;
+  /* Solid color for professionalism */
+  --other-message-bg: #2C3138;
+
+  /* Room Cards */
+  --room-avatar-from: #8B5CF6;
+  --room-avatar-to: #4C1D95;
+  --active-room-from: #8B5CF6;
+  --active-room-to: #4C1D95;
+  --active-room-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Avatar */
+  --avatar-from: #846ED8;
+  --avatar-to: #6B5AED;
+
+  /* Shadows */
+  --shadow-heavy: rgba(0, 0, 0, 0.4);
+}
+
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* Text selection */
+::selection {
+  background-color: var(--primary);
+  color: white;
+}
+
+
+/* In your global CSS or Tailwind config */
+.flex-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  /* Prevent overall scroll */
+}
+
+.sidebar-fixed {
+  width: 256px;
+  /* w-64 */
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  /* Allow sidebar to scroll independently */
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 256px;
+  /* Match sidebar width */
+  height: 100vh;
+  overflow-y: auto;
+  /* Allow main content to scroll independently */
+}
+
+/* For mobile responsive */
+@media (max-width: 768px) {
+  .sidebar-fixed {
+    width: 100%;
+    position: fixed;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar-fixed.open {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
