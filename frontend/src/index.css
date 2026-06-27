@@ -798,6 +798,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
+    margin-bottom: 1.25rem;
 }
 
 .auth-name-row .auth-input-group {
