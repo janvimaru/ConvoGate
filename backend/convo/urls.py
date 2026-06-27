@@ -20,12 +20,23 @@ def test_env(request):
             "prefix": val[:3] if key != "DB_PASSWORD" else (val[:1] + "**" if val else "")
         }
 
+    # Search for any .env files in the container
+    found_files = []
+    try:
+        for root, dirs, files in os.walk('.'):
+            for file in files:
+                if '.env' in file or 'env' in file.lower():
+                    found_files.append(os.path.join(root, file))
+    except Exception as e:
+        found_files = [str(e)]
+
     return JsonResponse({
         "DB_HOST": get_info("DB_HOST"),
         "DB_PORT": get_info("DB_PORT"),
         "DB_NAME": get_info("DB_NAME"),
         "DB_USER": get_info("DB_USER"),
         "DB_PASSWORD": get_info("DB_PASSWORD"),
+        "found_env_files": found_files
     })
 
 from .views.signup_view import signup_view
