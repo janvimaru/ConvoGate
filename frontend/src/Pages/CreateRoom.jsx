@@ -139,7 +139,7 @@ const CreateRoom = () => {
 
     return (
         <div className="flex-1 overflow-y-auto p-8 bg-[var(--bg-primary)] transition-colors duration-300">
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-7xl mx-auto pb-20">
                 {/* Header */}
                 <div className="mb-8">
                     <button
@@ -159,7 +159,67 @@ const CreateRoom = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <div className="space-y-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        
+                        {/* Left Column: Room Live Preview (lg:col-span-4) */}
+                        <div className="lg:col-span-4 bg-[var(--surface-light)] rounded-2xl p-6 border border-[var(--border-light)] shadow-sm flex flex-col items-center text-center sticky top-8">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] mb-6 self-start">Room Preview</h3>
+                            
+                            <div className="relative group mb-6">
+                                <div className="w-32 h-32 rounded-[1.8rem] bg-gradient-to-br from-[var(--avatar-from)] to-[var(--avatar-to)] flex items-center justify-center overflow-hidden ring-4 ring-[var(--surface-light)] shadow-md">
+                                    {roomData.avatar ? (
+                                        <img
+                                            src={
+                                                roomData.avatar.startsWith('blob:') || roomData.avatar.startsWith('data:')
+                                                    ? roomData.avatar
+                                                    : `${API_BASE}/media/${roomData.avatar}`
+                                            }
+                                            alt="Avatar"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <span className="text-4xl font-bold text-white">
+                                            {roomData.name ? roomData.name.charAt(0).toUpperCase() : "?"}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+
+                            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-1">
+                                {roomData.name || "Unnamed Room"}
+                            </h3>
+                            <p className="text-xs text-[var(--text-secondary)] mb-6 truncate max-w-full">
+                                {roomData.description || "No description set"}
+                            </p>
+
+                            <div className="w-full pt-4 border-t border-[var(--border-light)] text-left space-y-4">
+                                <div>
+                                    <h4 className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1.5">Room Type</h4>
+                                    <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${roomData.isQuickChat ? 'bg-amber-500/10 text-amber-500' : 'bg-blue-500/10 text-blue-500'}`}>
+                                        {roomData.isQuickChat ? 'Quick Chat' : 'Standard Room'}
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <h4 className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1.5">Visibility</h4>
+                                    <span className={`inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${roomData.isPrivate ? 'bg-red-500/10 text-red-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                                        {roomData.isPrivate ? 'Private Space' : 'Public Space'}
+                                    </span>
+                                </div>
+
+                                {roomData.isQuickChat && (
+                                    <div>
+                                        <h4 className="text-[10px] font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1.5">PIN Protection</h4>
+                                        <p className="text-xs font-mono font-bold text-[var(--text-primary)]">
+                                            Generated on Save ({roomData.expiryDuration} hour expiry)
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Right Column: Main Config Form (lg:col-span-8) */}
+                        <div className="lg:col-span-8 space-y-8">
                         {/* Mode Toggle */}
                         <div className="bg-[var(--surface-light)] rounded-2xl p-1 border border-[var(--border-light)] flex">
                             <button
@@ -558,7 +618,7 @@ const CreateRoom = () => {
                             </div>
                         )}
                     </div>
-
+                    
                     {/* Submit */}
                     <div className="mt-8">
                         <button
@@ -579,8 +639,10 @@ const CreateRoom = () => {
                             )}
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
+        </form>
+    </div>
 
             {/* Success Modal - Logic to choose between Quick Chat PIN popup or Standard Success popup */}
             {/* Success Modal */}
