@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock } from "lucide-react";
 import OTPInput from "../Components/UI/OTPInput";
@@ -10,6 +10,33 @@ const JoinRoom = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [otpKey, setOtpKey] = useState(0);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const urlPin = params.get("pin");
+        if (urlPin && urlPin.length === 6) {
+            setPin(urlPin);
+            autoSubmitPin(urlPin);
+        }
+    }, []);
+
+    const autoSubmitPin = async (pinValue) => {
+        setIsLoading(true);
+        try {
+            const res = await joinRoomAPI(pinValue);
+            if (res.data?.status === "pending") {
+                setStatus("pending");
+            } else if (res.data?.status === "joined") {
+                navigate(`/chat/${res.data.room_id}`);
+            }
+        } catch (err) {
+            alert(err.response?.data?.error || "Invalid or expired PIN");
+            setPin("");
+            setOtpKey((k) => k + 1);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handlePinSubmit = async (e) => {
         e.preventDefault();

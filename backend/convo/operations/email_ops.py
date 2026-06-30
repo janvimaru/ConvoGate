@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def send_room_invite_email(email, room_id, room_name, pin, creator_name, creator_email=None):
-    join_url = f"{settings.FRONTEND_URL}/join-room"
+    join_url = f"{settings.FRONTEND_URL}/join-room?pin={pin}"
 
     subject = f"{creator_name} invited you to join {room_name}"
 
@@ -11,11 +11,10 @@ def send_room_invite_email(email, room_id, room_name, pin, creator_name, creator
 
 {creator_name} has invited you to join the room: {room_name}
 
-Room ID: {room_id}
-PIN: {pin}
-
-Join Room:
+To join the room, simply click this link:
 {join_url}
+
+(If you are asked to enter a code, the Room PIN is {pin})
 
 Thanks,
 ConvoGate Team
