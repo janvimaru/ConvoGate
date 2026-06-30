@@ -404,7 +404,7 @@ const ChatRoom = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden bg-[var(--bg-primary)]">
+    <div className="h-full flex flex-col relative overflow-hidden bg-[var(--bg-primary)]">
       {/* Reaction List Modal */}
       {viewingReactions && (
         <ReactionListModal

@@ -9,7 +9,7 @@ const ChatHeader = ({
 
     return (
         <div className="sticky top-0 z-40 bg-[var(--bg-primary)] border-b border-[var(--border-light)] transition-all duration-300">
-            <div className="px-6 py-4 max-w-7xl mx-auto">
+            <div className="px-6 py-4 w-full">
                 <div className="flex items-center justify-between">
 
                     {/* Room Info (Clickable for Info Toggle) */}

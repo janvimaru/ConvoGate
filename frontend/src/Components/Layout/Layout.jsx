@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
@@ -9,19 +7,17 @@ const Layout = () => {
     const [isMobileSidebarOpen, setIsMobileSidebarOpen] = React.useState(false);
 
     return (
-        <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] overflow-y-auto transition-colors duration-300">
+        <div className="h-screen w-screen flex flex-col overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
             <Navbar onMenuClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />
-            <div className="flex pt-16 h-[calc(100vh-64px)]"> {/* Fill viewport height minus navbar */}
-                {/* Sidebar - scrolls independently */}
+            <div className="flex-1 flex overflow-hidden min-h-0 pt-16">
+                {/* Sidebar */}
                 <Sidebar
-                    className="h-full overflow-y-auto"
                     isOpen={isMobileSidebarOpen}
                     onClose={() => setIsMobileSidebarOpen(false)}
                 />
 
-                {/* Main content - NO scrolling here */}
-                <main className="flex-1 overflow-y-auto bg-[var(--bg-secondary)] transition-colors duration-300">
-                    {/* Outlet renders ChatRoom/Dashboard here - they handle their own scrolling */}
+                {/* Main content */}
+                <main className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[var(--bg-secondary)] transition-colors duration-300">
                     <Outlet />
                 </main>
             </div>
