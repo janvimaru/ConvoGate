@@ -60,7 +60,7 @@ const SearchResults = () => {
     const totalResults = results.users.length + results.rooms.length + results.messages.length;
 
     return (
-        <div className="p-6 bg-[var(--bg-secondary)] min-h-full">
+        <div className="flex-1 overflow-y-auto p-6 bg-[var(--bg-primary)]">
             {/* Header */}
             <div className="mb-6 flex items-center justify-between max-w-4xl mx-auto">
                 <div className="flex items-center gap-4">

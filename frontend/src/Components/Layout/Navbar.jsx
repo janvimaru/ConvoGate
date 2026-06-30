@@ -8,7 +8,7 @@ import Toast from '../UI/Toast';
 import { useAuth } from '../../Context/AuthContext';
 import { useTheme } from '../../Context/ThemeContext';
 import { adminJoinActionAPI } from '../../Utils/api';
-import { API_BASE, WS_BASE } from '../../Utils/constants';
+import { API_BASE, WS_BASE, LOGO_BASE64 } from '../../Utils/constants';
 import { getShadeGradient } from '../../Utils/colorUtils';
 
 const Navbar = ({ onMenuClick }) => {
@@ -378,43 +378,41 @@ const Navbar = ({ onMenuClick }) => {
 
     if (loading) {
         return (
-            <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-lg border-b border-[var(--border-light)] transition-colors duration-300">
-                <div className="px-6 py-3">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)' }}>
-                                <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
+            <header className="w-full flex flex-col z-50 shrink-0">
+                <nav className="w-full bg-[var(--navbar-bg)] border-b border-[var(--border-light)] transition-colors duration-300">
+                    <div className="px-6 py-3">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
+                                    <img src={LOGO_BASE64} alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
+                                </div>
+                                <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
+                                    ConvoGate
+                                </h1>
                             </div>
-                            <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
-                                ConvoGate
-                            </h1>
-                        </div>
-                        <div className="animate-pulse">
-                            <div className="w-32 h-10 bg-[var(--surface-hover)] rounded-xl"></div>
+                            <div className="animate-pulse">
+                                <div className="w-32 h-10 bg-[var(--surface-hover)] rounded-xl"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </header>
         );
     }
 
     return (
-        <>
+        <header className="w-full flex flex-col z-50 shrink-0">
             <Toast notification={toast} onClose={() => setToast(null)} />
 
             {/* CONNECTION STATUS BANNER */}
             {!isConnected && token && (
-                <div className="fixed top-0 left-0 right-0 z-[60] bg-orange-500 text-white text-xs font-medium py-1 text-center transition-transform duration-300 shadow-md">
+                <div className="bg-orange-500 text-white text-xs font-medium py-1.5 text-center shadow-md animate-in slide-in-from-top duration-300 flex items-center justify-center">
                     <span className="animate-pulse">Connecting...</span>
                     <button onClick={handleManualReconnect} className="ml-3 underline hover:text-orange-100">Tap to retry</button>
                 </div>
             )}
-            {isConnected && token && (
-                // Optional: A transient "Connected" green flash could go here, but usually hiding the orange bar is enough feedback.
-                null
-            )}
 
-            <nav className={`fixed top-0 left-0 right-0 z-50 bg-[var(--navbar-bg)] backdrop-blur-lg border-b border-[var(--border-light)] transition-all duration-300 ${!isConnected && token ? 'mt-6' : ''}`}>
+            <nav className="w-full bg-[var(--navbar-bg)] border-b border-[var(--border-light)] transition-all duration-300">
                 {/* ... navbar content ... */}
                 <div className="px-6 py-3">
                     <div className="flex items-center justify-between">
@@ -436,9 +434,9 @@ const Navbar = ({ onMenuClick }) => {
 
                             <div className="flex items-center space-x-3">
                                 {/* Logo - ALWAYS shows "CG" */}
-                                <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)' }}>
-                                    <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
-                                </div>
+                                 <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
+                                     <img src={LOGO_BASE64} alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
+                                 </div>
                                 <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
                                     ConvoGate
                                 </h1>
@@ -528,7 +526,7 @@ const Navbar = ({ onMenuClick }) => {
                     </div>
                 </div>
             </nav>
-        </>
+        </header>
     );
 };
 

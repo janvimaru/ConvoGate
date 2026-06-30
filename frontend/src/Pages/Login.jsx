@@ -2,23 +2,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
-import { API_BASE } from "../Utils/constants";
-
-const ConvoGateLogo = ({ className = "w-10 h-10" }) => (
-    <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#8b5cf6" />
-                <stop offset="100%" stopColor="#3b82f6" />
-            </linearGradient>
-        </defs>
-        <path d="M3 10L12 3L21 10V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V10Z" stroke="url(#logo-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M7 10H17V15C17 15.5523 16.5523 16 16 16H9.5L7 18.5V10Z" fill="url(#logo-grad)" opacity="0.85" />
-        <circle cx="10" cy="13" r="0.75" fill="white" />
-        <circle cx="12" cy="13" r="0.75" fill="white" />
-        <circle cx="14" cy="13" r="0.75" fill="white" />
-    </svg>
-);
+import { API_BASE, LOGO_BASE64 } from "../Utils/constants";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -81,8 +65,8 @@ export default function Login() {
             <div className="auth-card">
                 {/* Logo */}
                 <div className="auth-stagger-1">
-                    <div className="auth-logo flex items-center justify-center" style={{ width: 80, height: 80, borderRadius: 22, padding: 0, overflow: 'hidden', background: 'rgba(139, 92, 246, 0.1)', border: '2px solid rgba(139, 92, 246, 0.3)', boxShadow: '0 4px 24px rgba(139, 92, 246, 0.2)' }}>
-                        <ConvoGateLogo className="w-10 h-10" />
+                    <div className="auth-logo flex items-center justify-center" style={{ width: 80, height: 80, borderRadius: 22, padding: 0, overflow: 'hidden', background: '#0d0a1a', border: '2px solid rgba(139, 92, 246, 0.3)', boxShadow: '0 4px 24px rgba(139, 92, 246, 0.2)' }}>
+                        <img src={LOGO_BASE64} alt="ConvoGate" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                     </div>
                 </div>
 

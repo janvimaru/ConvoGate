@@ -148,7 +148,7 @@ const ProfileSettings = () => {
   }
 
   return (
-    <div className="p-4 md:p-8 bg-[var(--bg-secondary)] min-h-full transition-colors duration-300">
+    <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-[var(--bg-primary)] transition-colors duration-300">
       <div className="max-w-4xl mx-auto pb-20">
 
         {/* Header */}
@@ -268,7 +268,7 @@ const ProfileSettings = () => {
                 />
               </div>
 
-              <div className="col-span-1 md:col-span-2">
+              <div>
                 <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">Status Message</label>
                 <input
                   type="text"

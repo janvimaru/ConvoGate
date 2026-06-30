@@ -9,7 +9,7 @@ const Layout = () => {
     return (
         <div className="h-screen w-screen flex flex-col overflow-hidden bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
             <Navbar onMenuClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)} />
-            <div className="flex-1 flex overflow-hidden min-h-0 pt-16">
+            <div className="flex-1 flex overflow-hidden min-h-0">
                 {/* Sidebar */}
                 <Sidebar
                     isOpen={isMobileSidebarOpen}
@@ -17,7 +17,7 @@ const Layout = () => {
                 />
 
                 {/* Main content */}
-                <main className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[var(--bg-secondary)] transition-colors duration-300">
+                <main className="flex-1 flex flex-col overflow-hidden min-h-0 bg-[var(--bg-primary)] transition-colors duration-300">
                     <Outlet />
                 </main>
             </div>

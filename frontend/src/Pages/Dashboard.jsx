@@ -48,7 +48,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="p-8 bg-[var(--bg-secondary)] min-h-full transition-colors duration-300">
+        <div className="flex-1 overflow-y-auto p-8 bg-[var(--bg-primary)] transition-colors duration-300">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">

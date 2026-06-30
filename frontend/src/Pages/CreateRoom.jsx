@@ -138,7 +138,7 @@ const CreateRoom = () => {
     };
 
     return (
-        <div className="p-8 bg-[var(--bg-secondary)] min-h-full transition-colors duration-300">
+        <div className="flex-1 overflow-y-auto p-8 bg-[var(--bg-primary)] transition-colors duration-300">
             <div className="max-w-2xl mx-auto">
                 {/* Header */}
                 <div className="mb-8">
