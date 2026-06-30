@@ -48,9 +48,20 @@ def room_view(request):
         invite_all = bool(data.get("inviteAll", True))
 
         emails = []
+        creator_name = "Someone"
+        creator_email = None
 
         # 2️⃣ FETCH EMAILS (100% SAFE)
         with connection.cursor() as cursor:
+            # Fetch creator info to personalize invitations
+            cursor.execute("""
+                SELECT first_name, last_name, email FROM users WHERE user_id = %s
+            """, [user_id])
+            creator = cursor.fetchone()
+            if creator:
+                first_name, last_name, email_val = creator
+                creator_name = f"{first_name or ''} {last_name or ''}".strip() or "Someone"
+                creator_email = email_val
 
             if invite_all:
                 cursor.execute("""
@@ -75,7 +86,9 @@ def room_view(request):
                     email=email,
                     room_id=room_id,
                     room_name=data.get("name"),
-                    pin=pin
+                    pin=pin,
+                    creator_name=creator_name,
+                    creator_email=creator_email
                 )
             except Exception as e:
                 print("EMAIL SEND FAILED:", email, e)
