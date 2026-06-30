@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { X, Camera, Users, Loader2 } from "lucide-react";
 import axios from "axios";
+import { API_BASE } from "../../Utils/constants";
 
 const CreateGroupModal = ({ isOpen, onClose, onSuccess }) => {
     const [name, setName] = useState("");
@@ -26,7 +27,7 @@ const CreateGroupModal = ({ isOpen, onClose, onSuccess }) => {
         setIsUploading(true);
         try {
             const token = localStorage.getItem("token");
-            const res = await axios.post("http://127.0.0.1:8000/upload/chat-media/", formData, {
+            const res = await axios.post(`${API_BASE}/upload/chat-media/`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
@@ -52,7 +53,7 @@ const CreateGroupModal = ({ isOpen, onClose, onSuccess }) => {
         try {
             const token = localStorage.getItem("token");
             const res = await axios.post(
-                "http://127.0.0.1:8000/groups/create/",
+                `${API_BASE}/groups/create/`,
                 { name, description, avatar },
                 {
                     headers: { Authorization: `Bearer ${token}` },

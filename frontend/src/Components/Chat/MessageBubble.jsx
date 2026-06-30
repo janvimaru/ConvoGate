@@ -5,6 +5,7 @@ import { translateMessageAPI } from "../../Utils/api";
 import FestivalCard from "./FestivalCard";
 import ExpenseCard from "./ExpenseCard";
 import { getShadeGradient } from "../../Utils/colorUtils";
+import { API_BASE } from "../../Utils/constants";
 
 
 
@@ -148,7 +149,7 @@ const MessageBubble = ({ message, isOwn, timestamp, status, showAvatar, onReacti
                     >
                         {message.sender_profile_pic ? (
                             <img
-                                src={`http://127.0.0.1:8000/media/${message.sender_profile_pic}`}
+                                src={`${API_BASE}/media/${message.sender_profile_pic}`}
                                 alt={message.senderName}
                                 className="w-full h-full object-cover"
                             />

@@ -65,8 +65,8 @@ export default function Login() {
             <div className="auth-card">
                 {/* Logo */}
                 <div className="auth-stagger-1">
-                    <div className="auth-logo" style={{ width: 80, height: 80, borderRadius: 22, padding: 0, overflow: 'hidden', background: 'transparent', boxShadow: '0 4px 24px rgba(139, 92, 246, 0.4)', border: '2px solid rgba(139, 92, 246, 0.3)' }}>
-                        <img src="/convogate-logo.png" alt="ConvoGate" style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.8)', objectPosition: 'center 45%' }} />
+                    <div className="auth-logo" style={{ width: 80, height: 80, borderRadius: 22, padding: 0, overflow: 'hidden', background: '#0d0a1a', boxShadow: '0 4px 24px rgba(139, 92, 246, 0.4)', border: '2px solid rgba(139, 92, 246, 0.3)' }}>
+                        <img src="/convogate-logo.png" alt="ConvoGate" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                     </div>
                 </div>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Bell } from "lucide-react";
 import { adminJoinActionAPI } from "../../Utils/api";
+import { WS_BASE } from "../../Utils/constants";
 
 /* ===============================
    Notification Badge
@@ -66,7 +67,7 @@ const AdminNotifications = () => {
         if (!userId) return;
 
         socketRef.current = new WebSocket(
-            `ws://127.0.0.1:8000/ws/notifications/${userId}/`
+            `${WS_BASE}/ws/notifications/${userId}/`
         );
 
         socketRef.current.onmessage = (e) => {

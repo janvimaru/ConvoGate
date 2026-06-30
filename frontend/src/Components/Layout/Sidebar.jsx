@@ -121,6 +121,15 @@ const Sidebar = ({ isOpen, onClose }) => {
                 `}
             >
                 <div className="p-5 flex flex-col h-full">
+                    {/* Mobile Sidebar Brand Header */}
+                    <div className="flex items-center space-x-3 px-1 mb-6 md:hidden">
+                        <div className="w-9 h-9 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)' }}>
+                            <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
+                        </div>
+                        <h2 className="text-lg font-bold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
+                            ConvoGate
+                        </h2>
+                    </div>
 
                     {/* Action Buttons */}
                     <div className="grid grid-cols-2 gap-3 mb-6">

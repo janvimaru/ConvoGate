@@ -209,3 +209,4 @@ else:
         },
     }
 
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://convo-gate.vercel.app")

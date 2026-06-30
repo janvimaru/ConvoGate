@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { globalSearchAPI } from '../Utils/api';
+import { API_BASE } from '../Utils/constants';
 import { Search, User, MessageSquare, Hash, ArrowLeft, Loader2 } from 'lucide-react';
 
 const SearchResults = () => {
@@ -156,7 +157,7 @@ const SearchResults = () => {
                                     >
                                         {user.profile_pic ? (
                                             <img
-                                                src={`http://127.0.0.1:8000${user.profile_pic}`}
+                                                src={`${API_BASE}${user.profile_pic}`}
                                                 alt={user.username}
                                                 className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                                                 onError={(e) => {

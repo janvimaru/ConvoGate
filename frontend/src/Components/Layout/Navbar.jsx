@@ -8,7 +8,7 @@ import Toast from '../UI/Toast';
 import { useAuth } from '../../Context/AuthContext';
 import { useTheme } from '../../Context/ThemeContext';
 import { adminJoinActionAPI } from '../../Utils/api';
-import { API_BASE } from '../../Utils/constants';
+import { API_BASE, WS_BASE } from '../../Utils/constants';
 import { getShadeGradient } from '../../Utils/colorUtils';
 
 const Navbar = ({ onMenuClick }) => {
@@ -119,9 +119,7 @@ const Navbar = ({ onMenuClick }) => {
         const maxRetries = 10;
 
         const connect = () => {
-            // Establish WebSocket connection
-            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const socketUrl = `${protocol}//${window.location.hostname}:8000/ws/notifications/?user_id=${userData.user_id}`;
+            const socketUrl = `${WS_BASE}/ws/notifications/?user_id=${userData.user_id}`;
 
             console.log("Connecting to Notification Socket:", socketUrl);
             socket = new WebSocket(socketUrl);
@@ -245,7 +243,7 @@ const Navbar = ({ onMenuClick }) => {
 
                 // 2. Clear backend
                 if (token) {
-                    fetch("http://127.0.0.1:8000/notifications/mark_room_read/", {
+                    fetch(`${API_BASE}/notifications/mark_room_read/`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -269,7 +267,7 @@ const Navbar = ({ onMenuClick }) => {
             // API call to mark all as read in DB
             if (token) {
                 try {
-                    await fetch("http://127.0.0.1:8000/notifications/mark_all_read/", {
+                    await fetch(`${API_BASE}/notifications/mark_all_read/`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -385,7 +383,7 @@ const Navbar = ({ onMenuClick }) => {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                             <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)' }}>
-                                <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', transform: 'scale(1.8)', objectPosition: 'center 45%' }} />
+                                <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                             </div>
                             <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
                                 ConvoGate
@@ -439,7 +437,7 @@ const Navbar = ({ onMenuClick }) => {
                             <div className="flex items-center space-x-3">
                                 {/* Logo - ALWAYS shows "CG" */}
                                 <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)' }}>
-                                    <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', transform: 'scale(1.8)', objectPosition: 'center 45%' }} />
+                                    <img src="/convogate-logo.png" alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                                 </div>
                                 <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
                                     ConvoGate

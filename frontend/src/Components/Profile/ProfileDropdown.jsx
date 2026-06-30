@@ -4,6 +4,7 @@ import { useTheme } from '../../Context/ThemeContext';
 import { useAuth } from '../../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import ToggleSwitch from '../UI/ToggleSwitch';
+import { API_BASE } from '../../Utils/constants';
 
 const ProfileDropdown = ({ getUserInitials, username, userData }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +105,7 @@ const ProfileDropdown = ({ getUserInitials, username, userData }) => {
             >
                 {hasProfilePic ? (
                     <img
-                        src={`http://127.0.0.1:8000/media/${profileData.profile_pic}`}
+                        src={`${API_BASE}/media/${profileData.profile_pic}`}
                         alt={getFullName()}
                         className="w-9 h-9 rounded-lg object-cover"
                         onError={() => setImageError(true)}
@@ -136,7 +137,7 @@ const ProfileDropdown = ({ getUserInitials, username, userData }) => {
                             {/* Profile Image or Initials */}
                             {hasProfilePic ? (
                                 <img
-                                    src={`http://127.0.0.1:8000/media/${profileData.profile_pic}`}
+                                    src={`${API_BASE}/media/${profileData.profile_pic}`}
                                     alt={getFullName()}
                                     className="w-12 h-12 rounded-lg object-cover"
                                     onError={() => setImageError(true)}

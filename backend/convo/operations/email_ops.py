@@ -24,7 +24,7 @@ from django.conf import settings
 
 
 def send_room_invite_email(email, room_id, room_name, pin):
-    join_url = f"http://localhost:5173/join-room"
+    join_url = f"{settings.FRONTEND_URL}/join-room"
 
     subject = f"You're invited to join {room_name}"
 

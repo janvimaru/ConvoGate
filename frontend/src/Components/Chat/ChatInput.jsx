@@ -1,10 +1,10 @@
 
 
-
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Send, Paperclip, Mic, X, Loader2, Music, Video, FileText, Image as ImageIcon, Sparkles, Calendar, CreditCard, Plus } from "lucide-react";
 import axios from "axios";
 import IndianCalendar from "./IndianCalendar";
+import { API_BASE } from "../../Utils/constants";
 // CreateExpenseModal hoisted to ChatRoom
 
 const ChatInput = ({
@@ -196,7 +196,7 @@ const ChatInput = ({
         try {
             const token = localStorage.getItem("token");
             const res = await axios.post(
-                "http://127.0.0.1:8000/upload/chat-media/",
+                `${API_BASE}/upload/chat-media/`,
                 formData,
                 {
                     headers: {
@@ -584,7 +584,7 @@ const FestivalDropdown = ({ festival, onClose, onInsertGreeting, onOpenContribut
         try {
             const token = localStorage.getItem("token");
             const response = await axios.post(
-                "http://127.0.0.1:8000/api/festival/greeting/",
+                `${API_BASE}/api/festival/greeting/`,
                 {
                     festival_id: festival.festival_id,
                     festival_name: festival.name,

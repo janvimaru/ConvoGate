@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Lock, Hash, X, UserPlus, Check, Users, Globe, Zap, Clock } from 'lucide-react';
 import Modal from '../Components/UI/Modal';
 import { createRoomAPI, fetchAllUsersAPI } from "../Utils/api";
+import { API_BASE } from '../Utils/constants';
 
 const CreateRoom = () => {
     const navigate = useNavigate();
@@ -483,7 +484,7 @@ const CreateRoom = () => {
                                                                 <div className="flex items-center space-x-3">
                                                                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${selectedUsers.some(u => u.user_id === user.user_id) ? 'bg-[var(--primary)]' : 'bg-gradient-to-br from-blue-500 to-purple-600'}`}>
                                                                         {user.profile_pic ? (
-                                                                            <img src={`http://127.0.0.1:8000/media/${user.profile_pic}`} className="w-full h-full rounded-lg object-cover" />
+                                                                            <img src={`${API_BASE}/media/${user.profile_pic}`} className="w-full h-full rounded-lg object-cover" />
                                                                         ) : (
                                                                             <span className="text-white font-semibold">{getUserInitials(user)}</span>
                                                                         )}
