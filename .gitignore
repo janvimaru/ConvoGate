@@ -67,3 +67,6 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Local secrets scripts
+set_secrets.py
