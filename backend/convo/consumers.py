@@ -291,6 +291,7 @@ class NotificationConsumer(AsyncWebsocketConsumer):
             f.write(f"NOTIF_CONNECT_ATTEMPT: Scope: {self.scope['path']}\n")
 
         self.user_id = None
+        self.group_name = None
 
         query_params = parse_qs(self.scope["query_string"].decode())
         user_ids = query_params.get("user_id", [])

@@ -123,6 +123,12 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
         return () => window.removeEventListener("expense_update_event", handleUpdate);
     }, [expenseId]);
 
+    useEffect(() => {
+        if (!loading) {
+            window.dispatchEvent(new CustomEvent("scroll-chat-to-bottom"));
+        }
+    }, [loading]);
+
     const initiatePayment = (method) => {
         setConfirmMethod(method);
     };
@@ -175,7 +181,7 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
 
     return (
         <>
-            <div className="w-full max-w-[340px] bg-[var(--message-received-bg)] rounded-[18px] overflow-hidden shadow-sm border border-[var(--border-light)] transition-all duration-300 relative my-2">
+            <div className="w-full max-w-[290px] bg-[var(--message-received-bg)] rounded-[16px] overflow-hidden shadow-sm border border-[var(--border-light)] transition-all duration-300 relative my-2">
 
                 {/* Confirmation Overlay */}
                 {confirmMethod && (
@@ -195,89 +201,89 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                 )}
 
                 {/* 1. Header Section */}
-                <div className="bg-[var(--surface-header)] backdrop-blur-md p-5 border-b border-[var(--border-light)]">
+                <div className="bg-[var(--surface-header)] backdrop-blur-md p-4 border-b border-[var(--border-light)]">
                     <div className="flex justify-between items-start mb-2">
                         <div>
-                            <span className="text-[10px] uppercase tracking-widest font-bold text-[var(--text-tertiary)]">Expense</span>
-                            <h3 className="text-lg font-bold text-[var(--text-primary)] leading-tight">
+                            <span className="text-[9px] uppercase tracking-widest font-bold text-[var(--text-tertiary)]">Expense</span>
+                            <h3 className="text-sm font-bold text-[var(--text-primary)] leading-tight">
                                 {expense.description.replace(/\(Paid via .*\)/, "").trim()}
                             </h3>
                             {/* Parsed Payment Mode Badge */}
                             {expense.description.match(/\(Paid via (.*)\)/) && (
-                                <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded text-[10px] font-bold bg-[var(--surface-hover)] text-[var(--text-secondary)] uppercase tracking-wide border border-[var(--border-light)]">
+                                <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-[var(--surface-hover)] text-[var(--text-secondary)] uppercase tracking-wide border border-[var(--border-light)]">
                                     via {expense.description.match(/\(Paid via (.*)\)/)[1]}
                                 </span>
                             )}
                         </div>
                         <div className="text-right">
-                            <div className="flex items-center justify-end gap-0.5 text-2xl font-black text-[var(--text-primary)] tracking-tight">
-                                <IndianRupee className="w-5 h-5 mt-1" />
+                            <div className="flex items-center justify-end gap-0.5 text-lg font-bold text-[var(--text-primary)] tracking-tight">
+                                <IndianRupee className="w-4 h-4 mt-0.5" />
                                 {expense.total_amount}
                             </div>
-                            <div className="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wide">Total Bill</div>
+                            <div className="text-[9px] font-bold text-[var(--text-tertiary)] uppercase tracking-wide">Total Bill</div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-2 gap-3 mt-3">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white shadow-sm ring-2 ring-[var(--message-received-bg)]">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-2 ring-[var(--message-received-bg)]">
                                 {expense.creator_name?.charAt(0)}
                             </div>
                             <div className="flex flex-col">
-                                <span className="text-[10px] text-[var(--text-tertiary)] font-bold uppercase tracking-wider">Paid By</span>
-                                <span className="text-xs font-bold text-[var(--text-primary)]">{expense.creator_name}</span>
+                                <span className="text-[9px] text-[var(--text-tertiary)] font-bold uppercase tracking-wider">Paid By</span>
+                                <span className="text-[10px] font-bold text-[var(--text-primary)]">{expense.creator_name}</span>
                             </div>
                         </div>
                         <div className="flex items-center justify-end gap-2">
                             <div className="flex flex-col text-right">
-                                <span className="text-[10px] text-[var(--text-tertiary)] font-bold uppercase tracking-wider">Split Equally</span>
-                                <span className="text-xs font-bold text-[var(--text-primary)]">₹{perPersonAmount} / person</span>
+                                <span className="text-[9px] text-[var(--text-tertiary)] font-bold uppercase tracking-wider">Split Equally</span>
+                                <span className="text-[10px] font-bold text-[var(--text-primary)]">₹{perPersonAmount} / person</span>
                             </div>
-                            <div className="w-8 h-8 rounded-full bg-[var(--surface-hover)] flex items-center justify-center text-[var(--text-muted)] border border-[var(--border-light)]">
-                                <User className="w-4 h-4" />
+                            <div className="w-7 h-7 rounded-full bg-[var(--surface-hover)] flex items-center justify-center text-[var(--text-muted)] border border-[var(--border-light)]">
+                                <User className="w-3.5 h-3.5" />
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* 2. User Payment Section */}
-                <div className="p-4">
+                <div className="p-3.5">
                     {/* CREATOR VIEW */}
                     {isOwnMessage ? (
                         <div className="space-y-4">
                             {/* Stats Row */}
-                            <div className="flex rounded-xl bg-[var(--surface-hover)]/50 p-1">
-                                <div className="flex-1 text-center py-2 border-r border-[var(--border-light)]">
-                                    <span className="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider block">Paid</span>
-                                    <span className="text-lg font-black text-[var(--text-primary)]">{expense.paid_count}</span>
+                            <div className="flex rounded-xl bg-[var(--surface-hover)]/50 p-0.5">
+                                <div className="flex-1 text-center py-1.5 border-r border-[var(--border-light)]">
+                                    <span className="text-[9px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider block">Paid</span>
+                                    <span className="text-base font-black text-[var(--text-primary)]">{expense.paid_count}</span>
                                 </div>
-                                <div className="flex-1 text-center py-2">
-                                    <span className="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider block">Pending</span>
-                                    <span className="text-lg font-black text-amber-500">{expense.total_users - expense.paid_count}</span>
+                                <div className="flex-1 text-center py-1.5">
+                                    <span className="text-[9px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider block">Pending</span>
+                                    <span className="text-base font-black text-amber-500">{expense.total_users - expense.paid_count}</span>
                                 </div>
                             </div>
 
                             {/* Debtors List */}
                             <div className="space-y-3">
                                 {expense.all_payments.filter(p => p.user_id !== expense.created_by).map(payment => (
-                                    <div key={payment.payment_id} className="p-3 bg-[var(--surface-hover)]/30 rounded-xl border border-[var(--border-light)] relative group transition-all hover:bg-[var(--surface-hover)]">
+                                    <div key={payment.payment_id} className="p-2.5 bg-[var(--surface-hover)]/30 rounded-xl border border-[var(--border-light)] relative group transition-all hover:bg-[var(--surface-hover)]">
 
-                                        <div className="flex justify-between items-center mb-2">
+                                        <div className="flex justify-between items-center mb-1.5">
                                             <div className="flex items-center gap-2">
                                                 <span className={`w-2 h-2 rounded-full ${payment.status === 'PAID' ? 'bg-emerald-500' :
                                                     payment.status === 'SUBMITTED' ? 'bg-blue-500 animate-pulse' :
                                                         'bg-amber-500'
                                                     }`} />
-                                                <span className="text-sm font-bold text-[var(--text-primary)]">{payment.user_name}</span>
+                                                <span className="text-xs font-bold text-[var(--text-primary)]">{payment.user_name}</span>
                                             </div>
-                                            <span className="font-bold text-[var(--text-primary)] text-sm">₹{payment.amount}</span>
+                                            <span className="font-bold text-[var(--text-primary)] text-xs">₹{payment.amount}</span>
                                         </div>
 
                                         {/* Actions per user */}
                                         {payment.status === 'PENDING' && (
                                             <button
                                                 onClick={() => alert(`Reminder sent to ${payment.user_name}`)} // Placeholder for Reminder API
-                                                className="w-full py-2 rounded-lg border border-indigo-500/20 text-indigo-500 text-xs font-bold uppercase tracking-wide hover:bg-indigo-500/10 transition-colors flex items-center justify-center gap-2"
+                                                className="w-full py-1.5 rounded-lg border border-indigo-500/20 text-indigo-500 text-[10px] font-bold uppercase tracking-wide hover:bg-indigo-500/10 transition-colors flex items-center justify-center gap-2"
                                             >
                                                 <AlertCircle className="w-3 h-3" /> Remind User
                                             </button>
@@ -292,7 +298,7 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                                                             await expenseActionAPI({ action: 'confirm', payment_id: payment.payment_id });
                                                         } catch (e) { console.error(e); } finally { setIsSubmitting(false); }
                                                     }}
-                                                    className="flex-1 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1 shadow-sm"
+                                                    className="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold flex items-center justify-center gap-1 shadow-sm"
                                                 >
                                                     Confirm
                                                 </button>
@@ -303,7 +309,7 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                                                             await expenseActionAPI({ action: 'reject', payment_id: payment.payment_id });
                                                         } catch (e) { console.error(e); } finally { setIsSubmitting(false); }
                                                     }}
-                                                    className="flex-1 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 border border-red-200 text-xs font-bold flex items-center justify-center gap-1"
+                                                    className="flex-1 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-500 border border-red-200 text-[10px] font-bold flex items-center justify-center gap-1"
                                                 >
                                                     Reject
                                                 </button>
@@ -311,12 +317,12 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                                         )}
 
                                         {payment.status === 'PAID' && (
-                                            <div className="flex items-center justify-center gap-1 py-1.5 text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/10 rounded-lg">
+                                            <div className="flex items-center justify-center gap-1 py-1 text-[10px] font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-900/10 rounded-lg">
                                                 <CheckCircle className="w-3 h-3" /> Paid
                                             </div>
                                         )}
                                         {payment.status === 'REJECTED' && (
-                                            <div className="flex items-center justify-center gap-1 py-1.5 text-xs font-bold text-red-500 bg-red-50 dark:bg-red-900/10 rounded-lg">
+                                            <div className="flex items-center justify-center gap-1 py-1 text-[10px] font-bold text-red-500 bg-red-50 dark:bg-red-900/10 rounded-lg">
                                                 <XCircle className="w-3 h-3" /> Rejected
                                             </div>
                                         )}
@@ -328,9 +334,9 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                             <div className="mt-2 pt-2">
                                 <button
                                     onClick={() => setShowActivity(true)}
-                                    className="w-full py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center justify-center gap-2 hover:bg-indigo-100 transition-colors"
+                                    className="w-full py-2 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold flex items-center justify-center gap-2 hover:bg-indigo-100 transition-colors"
                                 >
-                                    <Activity className="w-3.5 h-3.5" /> View Details
+                                    <Activity className="w-3 h-3" /> View Details
                                 </button>
                             </div>
                         </div>
@@ -338,15 +344,15 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                         /* DEBTOR VIEW: Payment Actions */
                         <>
                             {/* User Status Block */}
-                            <div className="flex justify-between items-center mb-4 pb-4 border-b border-[var(--border-light)]">
+                            <div className="flex justify-between items-center mb-3 pb-3 border-b border-[var(--border-light)]">
                                 <div>
-                                    <span className="text-[10px] font-bold uppercase text-[var(--text-tertiary)]">You Pay</span>
-                                    <div className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-0.5">
-                                        <IndianRupee className="w-4 h-4" /> {expense.my_payment ? expense.my_payment.amount : "0"}
+                                    <span className="text-[9px] font-bold uppercase text-[var(--text-tertiary)]">You Pay</span>
+                                    <div className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-0.5">
+                                        <IndianRupee className="w-3.5 h-3.5" /> {expense.my_payment ? expense.my_payment.amount : "0"}
                                     </div>
                                 </div>
-                                <div className={`px-3 py-1.5 rounded-lg border border-[var(--border-light)] text-xs font-bold ${statusInfo.light} flex items-center gap-1.5`}>
-                                    <div className={`w-2 h-2 rounded-full ${statusInfo.color}`}></div>
+                                <div className={`px-2 py-1 rounded-lg border border-[var(--border-light)] text-[10px] font-bold ${statusInfo.light} flex items-center gap-1.5`}>
+                                    <div className={`w-1.5 h-1.5 rounded-full ${statusInfo.color}`}></div>
                                     {myStatus === 'PENDING' ? 'You need to pay' :
                                         myStatus === 'SUBMITTED' ? 'Waiting Confirmation' :
                                             myStatus === 'PAID' ? 'Completed' : 'Rejected'}
@@ -356,23 +362,23 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
                             {/* Payment Buttons (Only if Pending/Rejected) */}
                             {(myStatus === 'PENDING' || myStatus === 'REJECTED') && (
                                 <div className="space-y-3">
-                                    <p className="text-[10px] font-bold uppercase text-[var(--text-tertiary)] tracking-wider">Select Payment Method</p>
-                                    <div className="grid grid-cols-3 gap-2">
-                                        <button onClick={() => initiatePayment('CASH')} className="group flex flex-col items-center justify-center p-3 rounded-xl border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
-                                            <Banknote className="w-6 h-6 mb-1 text-emerald-500 group-hover:scale-110 transition-transform" />
-                                            <span className="text-[10px] font-bold text-[var(--text-secondary)]">Cash</span>
+                                    <p className="text-[9px] font-bold uppercase text-[var(--text-tertiary)] tracking-wider">Select Payment Method</p>
+                                    <div className="grid grid-cols-3 gap-1.5">
+                                        <button onClick={() => initiatePayment('CASH')} className="group flex flex-col items-center justify-center p-2.5 rounded-lg border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
+                                            <Banknote className="w-5 h-5 mb-0.5 text-emerald-500 group-hover:scale-110 transition-transform" />
+                                            <span className="text-[9px] font-bold text-[var(--text-secondary)]">Cash</span>
                                         </button>
-                                        <button onClick={() => initiatePayment('UPI')} className="group flex flex-col items-center justify-center p-3 rounded-xl border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
-                                            <Smartphone className="w-6 h-6 mb-1 text-orange-500 group-hover:scale-110 transition-transform" />
-                                            <span className="text-[10px] font-bold text-[var(--text-secondary)]">UPI</span>
+                                        <button onClick={() => initiatePayment('UPI')} className="group flex flex-col items-center justify-center p-2.5 rounded-lg border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
+                                            <Smartphone className="w-5 h-5 mb-0.5 text-orange-500 group-hover:scale-110 transition-transform" />
+                                            <span className="text-[9px] font-bold text-[var(--text-secondary)]">UPI</span>
                                         </button>
-                                        <button onClick={() => initiatePayment('BANK')} className="group flex flex-col items-center justify-center p-3 rounded-xl border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
-                                            <Building className="w-6 h-6 mb-1 text-blue-500 group-hover:scale-110 transition-transform" />
-                                            <span className="text-[10px] font-bold text-[var(--text-secondary)]">Bank</span>
+                                        <button onClick={() => initiatePayment('BANK')} className="group flex flex-col items-center justify-center p-2.5 rounded-lg border border-[var(--border-light)] hover:bg-[var(--surface-hover)] transition-all active:scale-95">
+                                            <Building className="w-5 h-5 mb-0.5 text-blue-500 group-hover:scale-110 transition-transform" />
+                                            <span className="text-[9px] font-bold text-[var(--text-secondary)]">Bank</span>
                                         </button>
                                     </div>
                                     {myStatus === 'REJECTED' && (
-                                        <div className="text-center text-xs text-red-500 font-medium animate-pulse">
+                                        <div className="text-center text-[10px] text-red-500 font-medium animate-pulse">
                                             Previous payment rejected. Please try again.
                                         </div>
                                     )}
@@ -400,7 +406,7 @@ const ExpenseCard = ({ expenseId, isOwnMessage }) => {
 
                             <button
                                 onClick={() => setShowActivity(true)}
-                                className="w-full mt-4 py-3 rounded-xl bg-[var(--surface-hover)]/50 text-[var(--text-secondary)] text-xs font-bold hover:bg-[var(--surface-active)] transition-colors"
+                                className="w-full mt-4 py-2 rounded-lg bg-[var(--surface-hover)]/50 text-[var(--text-secondary)] text-[10px] font-bold hover:bg-[var(--surface-active)] transition-colors"
                             >
                                 View Details
                             </button>

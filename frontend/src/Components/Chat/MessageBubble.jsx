@@ -80,7 +80,7 @@ const MessageBubble = ({ message, isOwn, timestamp, status, showAvatar, onReacti
     }, {});
 
     return (
-        <div className={`group flex ${isOwn ? "justify-end" : "justify-start"} animate-message mb-1 relative items-center`}>
+        <div className={`group flex ${isOwn ? "justify-end" : "justify-start"} animate-message mb-2.5 relative items-center`}>
             {/* Actions (Left side for Own messages) - FLEX LAYOUT */}
             {isOwn && (
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center space-x-1 mr-2 order-1">
@@ -144,7 +144,7 @@ const MessageBubble = ({ message, isOwn, timestamp, status, showAvatar, onReacti
             {!isOwn && showAvatar && (
                 <div className="flex-shrink-0 mb-1 self-end mr-3 order-1">
                     <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm overflow-hidden border border-white/10"
+                        className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm overflow-hidden border border-white/10"
                         style={{ background: getShadeGradient(message.sender_id || message.senderName) }}
                     >
                         {message.sender_profile_pic ? (
@@ -173,7 +173,7 @@ const MessageBubble = ({ message, isOwn, timestamp, status, showAvatar, onReacti
                 <div
                     className={`max-w-[100%] rounded-2xl flex flex-col transition-all duration-300 ${isSpecialType
                         ? "p-0 bg-transparent border-none shadow-none"
-                        : `px-4 py-2.5 shadow-sm ${isOwn
+                        : `px-4 py-2 shadow-sm ${isOwn
                             ? "text-white rounded-tr-none"
                             : "bg-[var(--message-received-bg)] text-[var(--message-received-text)] rounded-tl-none border border-[var(--border-light)]"
                         }`
@@ -323,7 +323,7 @@ const MessageBubble = ({ message, isOwn, timestamp, status, showAvatar, onReacti
                     </div>
 
                     {/* Timestamp + status (conditionally styled for special types) */}
-                    <div className={`flex items-center justify-end gap-1.5 mt-1.5 text-[10px] ${isSpecialType
+                    <div className={`flex items-center justify-end gap-1.5 mt-0.5 text-[10px] ${isSpecialType
                         ? 'bg-black/30 backdrop-blur-md text-white px-2 py-1 rounded-full absolute bottom-2 right-2 z-10 font-bold'
                         : (isOwn ? 'text-indigo-100/80' : 'text-slate-400 font-semibold')
                         }`}>

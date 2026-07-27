@@ -48,36 +48,36 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="flex-1 overflow-y-auto p-8 bg-[var(--bg-primary)] transition-colors duration-300">
+        <div className="flex-1 overflow-y-auto p-5 bg-[var(--bg-primary)] transition-colors duration-300">
             {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold text-[var(--text-primary)] mb-2">
+            <div className="mb-5">
+                <h1 className="text-xl font-bold text-[var(--text-primary)] mb-1">
                     Welcome back, {user?.full_name || user?.username}!
                 </h1>
-                <p className="text-[var(--text-secondary)]">
+                <p className="text-xs text-[var(--text-secondary)]">
                     Here's what's happening with your conversations
                 </p>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 {statItems.map((stat, index) => (
                     <div
                         key={index}
-                        className="bg-[var(--surface-light)] rounded-2xl p-6 border border-[var(--border-light)] hover:border-[var(--primary)]/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default"
+                        className="bg-[var(--surface-light)] rounded-xl p-4 border border-[var(--border-light)] hover:border-slate-300 dark:hover:border-slate-700 transition-colors duration-150 cursor-default"
                     >
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={`p-3 rounded-xl text-white shadow-md bg-gradient-to-br ${stat.gradient}`}>
-                                <stat.icon className="h-6 w-6" />
+                        <div className="flex items-center justify-between mb-3">
+                            <div className={`p-2 rounded-lg text-white shadow bg-gradient-to-br ${stat.gradient}`}>
+                                <stat.icon className="h-5 w-5" />
                             </div>
-                            <span className="text-sm font-medium text-[var(--text-secondary)]">
+                            <span className="text-xs font-medium text-[var(--text-secondary)]">
                                 {stat.change}
                             </span>
                         </div>
-                        <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-1">
+                        <h3 className="text-lg font-bold text-[var(--text-primary)] mb-0.5">
                             {stat.value}
                         </h3>
-                        <p className="text-sm text-[var(--text-secondary)]">
+                        <p className="text-xs text-[var(--text-secondary)]">
                             {stat.label}
                         </p>
                     </div>
@@ -87,30 +87,29 @@ const Dashboard = () => {
 
 
             {/* Recent Rooms */}
-            <div className="bg-[var(--surface-light)] rounded-2xl border border-[var(--border-light)] overflow-hidden">
-                <div className="p-6 border-b border-[var(--border-light)]">
+            <div className="bg-[var(--surface-light)] rounded-xl border border-[var(--border-light)] overflow-hidden">
+                <div className="p-4 border-b border-[var(--border-light)]">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl font-semibold text-[var(--text-primary)]">
+                            <h2 className="text-base font-bold text-[var(--text-primary)]">
                                 Recent Conversations
                             </h2>
-                            <p className="text-sm text-[var(--text-secondary)] mt-1">
+                            <p className="text-xs text-[var(--text-secondary)] mt-0.5">
                                 Continue where you left off
                             </p>
                         </div>
                         <button
                             onClick={() => navigate('/create-room')}
-                            className="px-5 py-2.5 rounded-xl text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-200"
-                            style={{ background: 'var(--gradient-primary)' }}
+                            className="px-4 py-2 rounded-lg text-xs text-white font-medium bg-indigo-600 hover:bg-indigo-700 transition-colors duration-150"
                         >
                             New Room
                         </button>
                     </div>
                 </div>
 
-                <div className="p-6">
+                <div className="p-4">
                     {recentRooms.length > 0 ? (
-                        <div className="space-y-4">
+                        <div className="space-y-2">
                             {recentRooms.map((room) => (
                                 <RoomCard
                                     key={room.id}
@@ -122,19 +121,18 @@ const Dashboard = () => {
                         </div>
                     ) : (
                         <div className="text-center py-12">
-                            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--surface-hover)] flex items-center justify-center">
-                                <MessageSquare className="h-8 w-8 text-[var(--text-tertiary)]" />
+                            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[var(--surface-hover)] flex items-center justify-center">
+                                <MessageSquare className="h-6 w-6 text-[var(--text-tertiary)]" />
                             </div>
-                            <h4 className="text-lg font-medium text-[var(--text-primary)] mb-2">
+                            <h4 className="text-base font-semibold text-[var(--text-primary)] mb-1">
                                 No conversations yet
                             </h4>
-                            <p className="text-sm text-[var(--text-secondary)] mb-6">
+                            <p className="text-xs text-[var(--text-secondary)] mb-4">
                                 Start by creating or joining a room
                             </p>
                             <button
                                 onClick={() => navigate('/create-room')}
-                                className="px-6 py-3 rounded-xl text-white font-medium shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-200"
-                                style={{ background: 'var(--gradient-primary)' }}
+                                className="px-5 py-2.5 rounded-lg text-xs text-white font-medium bg-indigo-600 hover:bg-indigo-700 transition-colors duration-150"
                             >
                                 Create Your First Room
                             </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../Utils/api';
-import { Calendar } from 'lucide-react';
+import { Calendar, Sparkles } from 'lucide-react';
 
 const FestivalCalendar = () => {
     const [festivals, setFestivals] = useState([]);
@@ -69,7 +69,7 @@ const FestivalCalendar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <span>{fest.icon || '🎉'}</span>
+                                <span>{fest.icon || <Sparkles className="w-5 h-5" style={{ color: fest.theme_color || 'var(--primary-color)' }} />}</span>
                             )}
                         </div>
 

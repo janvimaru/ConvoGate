@@ -17,7 +17,7 @@ const OTPInput = ({ length = 6, onComplete, disabled = false }) => {
             inputsRef.current[index + 1]?.focus();
         }
 
-        // ✅ Call ONLY when full PIN entered
+        // Call when full PIN entered
         if (newPin.every(d => d !== "") && typeof onComplete === "function") {
             onComplete(newPin.join(""));
         }
@@ -53,7 +53,7 @@ const OTPInput = ({ length = 6, onComplete, disabled = false }) => {
     };
 
     return (
-        <div className="flex justify-center space-x-3">
+        <div className="flex justify-center space-x-2 md:space-x-3">
             {pin.map((digit, index) => (
                 <input
                     key={index}
@@ -66,13 +66,15 @@ const OTPInput = ({ length = 6, onComplete, disabled = false }) => {
                     onChange={(e) => handleChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
                     onPaste={handlePaste}
-                    className="w-14 h-14 text-center text-2xl font-bold rounded-xl
-                               bg-[var(--bg-input)]
-                               border-2 border-[var(--border-light)]
-                               focus:border-[var(--primary-color)]
+                    placeholder={(index + 1).toString()}
+                    className="w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold rounded-xl
+                               bg-[var(--bg-primary)]
+                               border border-[var(--border-light)]
+                               focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20
                                focus:outline-none
                                text-[var(--text-primary)]
-                               disabled:opacity-50"
+                               placeholder-[var(--text-tertiary)]
+                               disabled:opacity-50 transition-all duration-200"
                 />
             ))}
         </div>

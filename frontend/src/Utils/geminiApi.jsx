@@ -9,7 +9,7 @@ export const fetchIndianFestivals = async (year, month) => {
     console.log(`📅 Fetching festivals for ${month} ${year}...`);
 
     const response = await axios.get(
-      `${API_BASE}/festival/gemini-festivals/?year=${year}&month=${month}`,
+      `${API_BASE}/festival/gemini-festivals/?year=${year}&month=${month}&_t=${Date.now()}`,
       {
         headers: {
           Authorization: `Bearer ${token}`

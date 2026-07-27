@@ -94,11 +94,11 @@
 
     /* Components */
     --avatar-text: #FFFFFF;
-    --active-room-bg: #EBE9FE;
-    /* Soft Light Violet */
-    --active-room-text: #5B21B6;
-    /* Deep Violet for contrast */
-    --active-room-shadow: rgba(139, 92, 246, 0.1);
+    --active-room-bg: #EEF2FF;
+    /* Soft Light Indigo */
+    --active-room-text: #4F46E5;
+    /* Indigo for contrast */
+    --active-room-shadow: rgba(99, 102, 241, 0.05);
 
     --room-avatar-from: #846ED8;
     --room-avatar-to: #6B5AED;
@@ -167,11 +167,11 @@
     --primary-gradient-to: #4C1D95;
     --primary-shadow: rgba(0, 0, 0, 0.5);
 
-    --active-room-bg: #322E4A;
-    /* Sophisticated Dark Violet */
-    --active-room-text: #DDD6FE;
-    /* Soft Violet Text */
-    --active-room-shadow: rgba(0, 0, 0, 0.3);
+    --active-room-bg: #312E81;
+    /* Sophisticated Dark Indigo */
+    --active-room-text: #E0E7FF;
+    /* Soft Indigo Text */
+    --active-room-shadow: rgba(0, 0, 0, 0.2);
 
     /* Tonal Shade Variety (Violet/Indigo Spectrum) */
     --shade-1-from: #6366F1;

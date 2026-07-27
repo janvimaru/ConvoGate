@@ -117,81 +117,80 @@ const Sidebar = ({ isOpen, onClose }) => {
 
             <aside
                 className={`
-                    fixed inset-y-0 left-0 z-50 w-80 bg-[var(--sidebar-bg)] border-r border-[var(--border-light)] shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-full md:shadow-none
+                    fixed inset-y-0 left-0 z-50 w-72 bg-[var(--sidebar-bg)] border-r border-[var(--border-light)] shadow-xl transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-full md:shadow-none
                     ${isOpen ? 'translate-x-0' : '-translate-x-full'}
                 `}
             >
-                <div className="p-5 flex flex-col h-full">
+                <div className="p-4 flex flex-col h-full">
                     {/* Mobile Sidebar Brand Header */}
-                    <div className="flex items-center space-x-3 px-1 mb-6 md:hidden">
-                        <div className="w-9 h-9 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
+                    <div className="flex items-center space-x-2.5 px-1 mb-4 md:hidden">
+                        <div className="w-8 h-8 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
                             <img src={LOGO_BASE64} alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                         </div>
-                        <h2 className="text-lg font-bold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
+                        <h2 className="text-base font-bold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
                             ConvoGate
                         </h2>
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-2 gap-2 mb-4">
                         <button
                             onClick={() => navigate("/create-room")}
-                            className="flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-white font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-200"
-                            style={{ background: 'var(--gradient-primary)' }}
+                            className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg text-white font-semibold text-xs shadow-sm bg-indigo-600 hover:bg-indigo-700 transition-all duration-150"
                         >
-                            <Plus className="h-5 w-5" />
+                            <Plus className="h-4 w-4" />
                             <span>New</span>
                         </button>
 
                         <button
                             onClick={() => navigate("/join-room")}
-                            className="flex items-center justify-center space-x-2 py-3 px-4 rounded-xl bg-[var(--surface-light)] border border-[var(--border-light)] text-[var(--text-primary)] font-semibold hover:bg-[var(--surface-hover)] hover:border-[var(--primary)]/30 transition-all duration-200"
+                            className="flex items-center justify-center space-x-1.5 py-2 px-3 rounded-lg bg-[var(--surface-light)] border border-[var(--border-light)] text-[var(--text-primary)] font-semibold text-xs hover:bg-[var(--surface-hover)] transition-all duration-150"
                         >
-                            <LogIn className="h-5 w-5 text-[var(--text-secondary)]" />
+                            <LogIn className="h-4 w-4 text-[var(--text-secondary)]" />
                             <span>Join</span>
                         </button>
                     </div>
 
                     {/* Section Tabs */}
-                    <div className="flex p-1 rounded-xl bg-[var(--surface-light)] border border-[var(--border-light)] mb-6">
+                    <div className="flex p-1 rounded-lg bg-[var(--surface-light)] border border-[var(--border-light)] mb-4">
                         <button
                             onClick={() => setActiveSection("joined")}
-                            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeSection === "joined"
+                            className={`flex-1 flex items-center justify-center space-x-1.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${activeSection === "joined"
                                 ? "bg-[var(--bg-primary)] text-[var(--primary)] shadow-sm ring-1 ring-black/5 dark:ring-white/5"
                                 : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)]"
                                 }`}
                         >
-                            <MessageSquare className="h-4 w-4" />
+                            <MessageSquare className="h-3.5 w-3.5" />
                             <span>Joined</span>
                         </button>
                         <button
                             onClick={() => setActiveSection("created")}
-                            className={`flex-1 flex items-center justify-center space-x-2 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${activeSection === "created"
+                            className={`flex-1 flex items-center justify-center space-x-1.5 py-1.5 rounded-md text-xs font-medium transition-all duration-200 ${activeSection === "created"
                                 ? "bg-[var(--bg-primary)] text-[var(--primary)] shadow-sm ring-1 ring-black/5 dark:ring-white/5"
                                 : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)]"
                                 }`}
                         >
-                            <Users className="h-4 w-4" />
+                            <Users className="h-3.5 w-3.5" />
                             <span>Created</span>
                         </button>
                     </div>
 
                     {/* Header for List */}
-                    <div className="flex items-center justify-between mb-3 px-1">
-                        <h3 className="text-xs font-bold text-[var(--text-tertiary)] uppercase tracking-wider">
+                    <div className="flex items-center justify-between mb-2 px-1">
+                        <h3 className="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider">
                             {activeSection === "joined" ? "Recent Conversations" : "Your Rooms"}
                         </h3>
-                        <span className="text-xs text-[var(--text-tertiary)] bg-[var(--surface-light)] px-2 py-0.5 rounded-full border border-[var(--border-light)]">
+                        <span className="text-[10px] text-[var(--text-tertiary)] bg-[var(--surface-light)] px-1.5 py-0.5 rounded-full border border-[var(--border-light)]">
                             {rooms.length}
                         </span>
                     </div>
 
                     {/* Room List - Scrollable Area */}
-                    <div className="flex-1 overflow-y-auto min-h-0 space-y-1 -mx-2 px-2 scrollbar-thin scrollbar-thumb-[var(--border-light)] scrollbar-track-transparent">
+                    <div className="flex-1 overflow-y-auto min-h-0 space-y-0.5 -mx-2 px-2 scrollbar-thin scrollbar-thumb-[var(--border-light)] scrollbar-track-transparent">
                         {isLoading ? (
                             <div className="flex flex-col items-center justify-center h-40 space-y-3 opacity-50">
-                                <div className="w-8 h-8 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin"></div>
-                                <span className="text-xs text-[var(--text-secondary)]">Loading rooms...</span>
+                                <div className="w-6 h-6 border-2 border-[var(--primary)] border-t-transparent rounded-full animate-spin"></div>
+                                <span className="text-[10px] text-[var(--text-secondary)]">Loading rooms...</span>
                             </div>
                         ) : rooms.length > 0 ? (
                             rooms.map((room) => (
@@ -205,14 +204,14 @@ const Sidebar = ({ isOpen, onClose }) => {
                             ))
                         ) : (
                             <div className="flex flex-col items-center justify-center h-48 text-center p-4 border-2 border-dashed border-[var(--border-light)] rounded-2xl mt-2 bg-[var(--surface-light)]/30">
-                                <div className="w-12 h-12 bg-[var(--surface-light)] rounded-full flex items-center justify-center mb-3">
+                                <div className="w-10 h-10 bg-[var(--surface-light)] rounded-full flex items-center justify-center mb-2">
                                     {activeSection === "joined" ?
-                                        <MessageSquare className="h-6 w-6 text-[var(--text-tertiary)]" /> :
-                                        <Users className="h-6 w-6 text-[var(--text-tertiary)]" />
+                                        <MessageSquare className="h-5 w-5 text-[var(--text-tertiary)]" /> :
+                                        <Users className="h-5 w-5 text-[var(--text-tertiary)]" />
                                     }
                                 </div>
-                                <p className="text-sm font-medium text-[var(--text-secondary)]">No rooms found</p>
-                                <p className="text-xs text-[var(--text-tertiary)] mt-1">
+                                <p className="text-xs font-medium text-[var(--text-secondary)]">No rooms found</p>
+                                <p className="text-[10px] text-[var(--text-tertiary)] mt-1">
                                     {activeSection === "joined" ? "Join a room to get started" : "Create your first room"}
                                 </p>
                             </div>

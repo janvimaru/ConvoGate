@@ -5,13 +5,25 @@ import os
 import re
 import time
 import random
+from dotenv import load_dotenv
+
+# Try to find .env file in parent directories if not already loaded in environment
+if not os.getenv("GROQ_API_KEY") or not os.getenv("GEMINI_API_KEY"):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(4):
+        env_path = os.path.join(current_dir, ".env")
+        if os.path.exists(env_path):
+            load_dotenv(env_path)
+            break
+        current_dir = os.path.dirname(current_dir)
 
 # ==========================================
 #  GEMINI-POWERED FESTIVAL OPERATIONS
 #  (Force Reload - Verified)
 # ==========================================
 
-GEMINI_API_KEY = 'AIzaSyD4-Mk3Xw_TDQcwp4Y1lTKaZPAou9gtfRI'
+# Try loading from environment first, then fallback to hardcoded
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") or 'AIzaSyD4-Mk3Xw_TDQcwp4Y1lTKaZPAou9gtfRI'
 CACHE_FILE = os.path.join(os.path.dirname(
     __file__), 'festival_data_cache.json')
 # Using a stable model. 2.5-flash is often better for free tier limits than 2.0
@@ -35,12 +47,12 @@ STATIC_FESTIVALS_2026 = {
             "category": "Harvest", "color": "#FFD700", "emoji": "🪁"},
         {"name": "Pongal", "date": "2026-01-15",
             "category": "Harvest", "color": "#008000", "emoji": "🍚"},
+        {"name": "Vasant Panchami", "date": "2026-01-23",
+            "category": "Religious", "color": "#FFD700", "emoji": "📚"},
         {"name": "Republic Day", "date": "2026-01-26",
             "category": "National", "color": "#FF9933", "emoji": "🇮🇳"}
     ],
     "February": [
-        {"name": "Vasant Panchami", "date": "2026-02-01",
-            "category": "Religious", "color": "#FFD700", "emoji": "📚"},
         {"name": "Maha Shivaratri", "date": "2026-02-16",
             "category": "Religious", "color": "#4682B4", "emoji": "🔱"}
     ],
@@ -49,12 +61,16 @@ STATIC_FESTIVALS_2026 = {
             "category": "Religious", "color": "#FF4500", "emoji": "🎨"},
         {"name": "Gudi Padwa", "date": "2026-03-19",
             "category": "Religious", "color": "#32CD32", "emoji": "🌸"},
+        {"name": "Eid al-Fitr", "date": "2026-03-21",
+            "category": "Religious", "color": "#10B981", "emoji": "🌙"},
         {"name": "Rama Navami", "date": "2026-03-27",
             "category": "Religious", "color": "#FFD700", "emoji": "🏹"}
     ],
     "April": [
         {"name": "Hanuman Jayanti", "date": "2026-04-02",
             "category": "Religious", "color": "#FF4500", "emoji": "🐒"},
+        {"name": "Good Friday", "date": "2026-04-03",
+            "category": "Religious", "color": "#783500", "emoji": "✝️"},
         {"name": "Ambedkar Jayanti", "date": "2026-04-14",
             "category": "National", "color": "#0000FF", "emoji": "⚖️"},
         {"name": "Baisakhi", "date": "2026-04-14",
@@ -72,8 +88,106 @@ STATIC_FESTIVALS_2026 = {
         {"name": "Angarki Chaturthi", "date": "2026-05-05",
             "category": "Religious", "color": "#FF9933", "emoji": "🐘"},
         {"name": "Shani Jayanti", "date": "2026-05-16",
-            "category": "Religious", "color": "#000000", "emoji": "⚖️"}
+            "category": "Religious", "color": "#000000", "emoji": "⚖️"},
+        {"name": "Eid al-Adha / Bakrid", "date": "2026-05-28",
+            "category": "Religious", "color": "#059669", "emoji": "🐐"}
+    ],
+    "June": [
+        {"name": "Rath Yatra", "date": "2026-06-25",
+            "category": "Religious", "color": "#ec4899", "emoji": "🛕"}
+    ],
+    "July": [
+        {"name": "Guru Purnima", "date": "2026-07-29",
+            "category": "Religious", "color": "#eab308", "emoji": "🙏"}
+    ],
+    "August": [
+        {"name": "Independence Day", "date": "2026-08-15",
+            "category": "National", "color": "#10b981", "emoji": "🇮🇳"},
+        {"name": "Raksha Bandhan", "date": "2026-08-28",
+            "category": "Religious", "color": "#ec4899", "emoji": "🎀"}
+    ],
+    "September": [
+        {"name": "Onam", "date": "2026-09-02",
+            "category": "Harvest", "color": "#8BC34A", "emoji": "🌾"},
+        {"name": "Krishna Janmashtami", "date": "2026-09-04",
+            "category": "Religious", "color": "#3b82f6", "emoji": "🦚"},
+        {"name": "Ganesh Chaturthi", "date": "2026-09-14",
+            "category": "Religious", "color": "#f97316", "emoji": "🐘"}
+    ],
+    "October": [
+        {"name": "Gandhi Jayanti", "date": "2026-10-02",
+            "category": "National", "color": "#10b981", "emoji": "🕊️"},
+        {"name": "Navratri", "date": "2026-10-11",
+            "category": "Religious", "color": "#FFC0CB", "emoji": "🕊️"},
+        {"name": "Maha Navami", "date": "2026-10-19",
+            "category": "Religious", "color": "#eab308", "emoji": "🌺"},
+        {"name": "Dussehra", "date": "2026-10-20",
+            "category": "Religious", "color": "#f59e0b", "emoji": "🏹"},
+        {"name": "Karva Chauth", "date": "2026-10-29",
+            "category": "Religious", "color": "#ec4899", "emoji": "🌙"}
+    ],
+    "November": [
+        {"name": "Diwali", "date": "2026-11-08",
+            "category": "Religious", "color": "#eab308", "emoji": "🪔"},
+        {"name": "Bhai Dooj", "date": "2026-11-10",
+            "category": "Religious", "color": "#f97316", "emoji": "✨"},
+        {"name": "Guru Nanak Jayanti", "date": "2026-11-24",
+            "category": "Religious", "color": "#eab308", "emoji": "☬"}
+    ],
+    "December": [
+        {"name": "Christmas", "date": "2026-12-25",
+            "category": "Religious", "color": "#ef4444", "emoji": "🎄"}
     ]
+}
+
+# Master list of correct/verified dates for 2026 to detect and reject AI hallucinations
+VERIFIED_FESTIVALS_2026 = {
+    "lohri": "2026-01-13",
+    "makar sankranti": "2026-01-14",
+    "pongal": "2026-01-15",
+    "vasant panchami": "2026-01-23",
+    "republic day": "2026-01-26",
+    "maha shivaratri": "2026-02-16",
+    "shivaratri": "2026-02-16",
+    "holi": "2026-03-04",
+    "gudi padwa": "2026-03-19",
+    "ugadi": "2026-03-19",
+    "eid al-fitr": "2026-03-21",
+    "ramzan eid": "2026-03-21",
+    "rama navami": "2026-03-26",
+    "ram navami": "2026-03-26",
+    "hanuman jayanti": "2026-04-02",
+    "good friday": "2026-04-03",
+    "ambedkar jayanti": "2026-04-14",
+    "baisakhi": "2026-04-14",
+    "bengali new year": "2026-04-15",
+    "akshaya tritiya": "2026-04-19",
+    "buddha purnima": "2026-05-01",
+    "may day": "2026-05-01",
+    "angarki chaturthi": "2026-05-05",
+    "shani jayanti": "2026-05-16",
+    "eid al-adha": "2026-05-28",
+    "bakrid": "2026-05-28",
+    "rath yatra": "2026-06-25",
+    "guru purnima": "2026-07-29",
+    "independence day": "2026-08-15",
+    "raksha bandhan": "2026-08-28",
+    "rakhi": "2026-08-28",
+    "krishna janmashtami": "2026-09-04",
+    "janmashtami": "2026-09-04",
+    "onam": "2026-09-02",
+    "ganesh chaturthi": "2026-09-14",
+    "gandhi jayanti": "2026-10-02",
+    "navratri": "2026-10-11",
+    "maha navami": "2026-10-19",
+    "dussehra": "2026-10-20",
+    "vijayadashami": "2026-10-20",
+    "karva chauth": "2026-10-29",
+    "diwali": "2026-11-08",
+    "deepavali": "2026-11-08",
+    "bhai dooj": "2026-11-10",
+    "guru nanak jayanti": "2026-11-24",
+    "christmas": "2026-12-25"
 }
 
 
@@ -124,7 +238,7 @@ def generate_text_content(prompt, cache_key=None):
     # 1. Check File Cache (API Response Cache)
     cache = load_cache()
     if cache_key and cache_key in cache:
-        print(f"⚡ Using cached API result for: {cache_key}")
+        print(f"[Cache] Using cached API result for: {cache_key}")
         return cache[cache_key]
 
     # 2. Call API
@@ -147,7 +261,7 @@ def generate_text_content(prompt, cache_key=None):
     for attempt in range(max_retries + 1):
         try:
             print(
-                f"📡 Calling Gemini API ({MODEL_NAME}, Attempt {attempt+1})...")
+                f"[API] Calling Gemini API ({MODEL_NAME}, Attempt {attempt+1})...")
             response = requests.post(url, json=data, headers=headers)
 
             if response.status_code == 200:
@@ -181,70 +295,137 @@ def generate_text_content(prompt, cache_key=None):
                                     # Add 1s buffer
                                     wait_time = float(rd[:-1]) + 1
                                     print(
-                                        f"🕒 Reviewing retryDelay: {rd} -> Waiting {wait_time:.2f}s")
+                                        f"[Delay] Reviewing retryDelay: {rd} -> Waiting {wait_time:.2f}s")
                                     break
                 except:
                     pass
 
-                print(f"⚠️ Quota exceeded (429). Waiting {wait_time:.2f}s...")
+                print(f"[Warning] Quota exceeded (429). Waiting {wait_time:.2f}s...")
                 time.sleep(wait_time)
                 continue
 
             else:
                 print(
-                    f"❌ Gemini API Error: {response.status_code} - {response.text[:200]}")
+                    f"[Error] Gemini API Error: {response.status_code} - {response.text[:200]}")
                 # For 404 (Model not found), try fallback model
                 if response.status_code == 404:
-                    print("⚠️ Model not found, switching to gemini-2.0-flash for retry")
+                    print("[Warning] Model not found, switching to gemini-2.0-flash for retry")
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
                     continue
                 break
 
         except Exception as e:
-            print(f"❌ Connection error: {e}")
+            print(f"[Error] Connection error: {e}")
             break
 
     return None
 
 
 def get_gemini_festivals(year=None, month=None):
-    """Get festivals strictly from Gemini API"""
+    """Get festivals from Gemini API, falling back to Groq API or static dataset if needed"""
     if not year:
         year = date.today().year
     if not month:
         month = date.today().strftime("%B")
 
     cache_key = f"festivals_{year}_{month}"
-    print(f"📅 Getting festivals for {month} {year} via API...")
+    print(f"[Festivals] Getting festivals for {month} {year} via API...")
 
-    prompt = f"""List major Indian festivals in {year} for the month of {month}.
+    prompt = f"""List major Indian festivals, national holidays (such as Independence Day, Republic Day, Gandhi Jayanti), and important public/harvest holidays in {year} for the month of {month}.
     
     Return a STRICT JSON array where each item has:
-    - name: Festival name
+    - name: Festival or holiday name
     - date: YYYY-MM-DD
     - description: Short description
-    - category: Type
+    - category: Type (e.g., Religious, National, Harvest, Cultural)
     - color: Hex color
     - emoji: Emoji
 
-    Example: [{{"name": "Diwali", "date": "{year}-11-01", "description": "Lights", "category": "Religious", "color": "#FF9933", "emoji": "🪔"}}]
+    Example: [{{"name": "Diwali", "date": "{year}-11-01", "description": "Festival of lights", "category": "Religious", "color": "#FF9933", "emoji": "🪔"}}]
     
-    Return ONLY JSON. No markdown formatting. If no festivals, return []."""
+    Return ONLY JSON. No markdown formatting. If no festivals/holidays, return []."""
 
-    json_str = generate_text_content(prompt, cache_key)
+    # Check cache first
+    cache = load_cache()
+    json_str = cache.get(cache_key)
     festivals = []
 
     if json_str:
         extracted = extract_json_from_text(json_str)
         if isinstance(extracted, list):
             festivals = extracted
-        else:
-            print(f"❌ Failed to parse JSON: {json_str[:100]}")
+        elif isinstance(extracted, dict) and "festivals" in extracted:
+            festivals = extracted["festivals"]
 
-    # CRITICAL FALLBACK: If AI fails or returns empty, check our static 2026 data
-    if not festivals and year == 2026 and month in STATIC_FESTIVALS_2026:
-        print(f"📦 Using static fallback for {month} {year}")
-        festivals = STATIC_FESTIVALS_2026[month]
+    # 1. Try Gemini API if not cached
+    if not festivals:
+        json_str = generate_text_content(prompt, cache_key)
+        if json_str:
+            extracted = extract_json_from_text(json_str)
+            if isinstance(extracted, list):
+                festivals = extracted
+
+    # 2. Try Groq API fallback if Gemini failed
+    if not festivals:
+        groq_key = os.getenv("GROQ_API_KEY") or os.getenv("Groq_API_Key")
+        if groq_key:
+            print("[Groq] Calling Groq API for festivals list...")
+            url = "https://api.groq.com/openai/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {groq_key}",
+                "Content-Type": "application/json"
+            }
+            data = {
+                "model": "llama-3.3-70b-versatile",
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.5,
+                "response_format": {"type": "json_object"}
+            }
+            try:
+                response = requests.post(url, json=data, headers=headers, timeout=10)
+                if response.status_code == 200:
+                    result = response.json()
+                    content = result['choices'][0]['message']['content']
+                    
+                    extracted = extract_json_from_text(content)
+                    if isinstance(extracted, list):
+                        festivals = extracted
+                    elif isinstance(extracted, dict) and "festivals" in extracted:
+                        festivals = extracted["festivals"]
+                    
+                    if festivals:
+                        # Save to Cache
+                        cache[cache_key] = json.dumps(festivals)
+                        save_cache(cache)
+                        print("[Groq SUCCESS] Festivals successfully fetched via Groq!")
+            except Exception as e:
+                print(f"[Groq ERROR] Connection error calling Groq for festivals: {e}")
+
+    # Merge with verified static fallbacks for 2026 to ensure 100% correct dates for main celebrations
+    if year == 2026 and month in STATIC_FESTIVALS_2026:
+        static_festivals = STATIC_FESTIVALS_2026[month]
+        if not festivals:
+            print(f"[Fallback] Using static fallback for {month} {year}")
+            festivals = static_festivals
+        else:
+            print(f"[Fallback] Merging verified static dates with API results for {month} {year}...")
+            static_names = {f['name'].lower().strip() for f in static_festivals}
+            merged = list(static_festivals)
+            for fest in festivals:
+                name = fest.get('name', '').lower().strip()
+                # 1. If it matches a static fallback name exactly, skip it (static takes priority)
+                if name in static_names:
+                    continue
+                # 2. If it is a known master festival but the API returned a wrong/hallucinated date, reject it
+                if name in VERIFIED_FESTIVALS_2026:
+                    correct_date = VERIFIED_FESTIVALS_2026[name]
+                    if fest.get('date') != correct_date:
+                        print(f"[Fallback] Rejected API-hallucinated date {fest.get('date')} for '{fest.get('name')}'; correct date is {correct_date}")
+                        continue
+                merged.append(fest)
+            festivals = merged
 
     # Format for frontend
     formatted_festivals = {}
@@ -268,36 +449,124 @@ def get_gemini_festivals(year=None, month=None):
 
 
 def generate_smart_greeting(festival_id=None, festival_name=None, tone='Happy'):
-    """Generate greetings using Gemini API"""
+    """Generate greetings using Groq API (if GROQ_API_KEY is configured) or Gemini API"""
     if not festival_name:
         return {"success": False, "error": "Festival name required"}
 
-    cache_key = f"greeting_{festival_name}_{tone}"
+    groq_key = os.getenv("GROQ_API_KEY") or os.getenv("Groq_API_Key")
+    
+    # Use separate cache keys for Groq and Gemini to avoid collision
+    if groq_key:
+        cache_key = f"groq_greeting_{festival_name}_{tone}"
+    else:
+        cache_key = f"gemini_greeting_{festival_name}_{tone}"
 
+    # Prompt requesting a clean JSON object structure (perfect for Groq json_object format and Gemini)
     prompt = f"""Generate 3 unique {tone} greetings for {festival_name}.
     Each message must be 3-4 lines long with emojis.
-    Return STRICT JSON array of 3 strings.
-    Example: ["Message 1", "Message 2", "Message 3"]
+    Return a JSON object with a "greetings" key containing an array of 3 strings.
+    Example: {{ "greetings": ["Message 1", "Message 2", "Message 3"] }}
     Return ONLY JSON."""
 
-    json_str = generate_text_content(prompt, cache_key)
     greetings = []
+    source = "fallback"
 
-    if json_str:
-        extracted = extract_json_from_text(json_str)
+    def parse_greetings(content_str):
+        if not content_str:
+            return None
+        extracted = extract_json_from_text(content_str)
         if isinstance(extracted, list):
-            greetings = extracted
+            return extracted
+        if isinstance(extracted, dict):
+            if "greetings" in extracted:
+                return extracted["greetings"]
+            if "messages" in extracted:
+                return extracted["messages"]
+        return None
 
-    # Fallback only if API fails completely to return valid JSON
+    # Try cache first
+    cache = load_cache()
+    if cache_key in cache:
+        print(f"[Cache] Using cached API result for: {cache_key}")
+        cached_greetings = parse_greetings(cache[cache_key])
+        if cached_greetings:
+            return {
+                "success": True,
+                "messages": cached_greetings,
+                "source": "groq-ai" if groq_key else "gemini-ai"
+            }
+
+    # If Groq Key is present, try Groq API first
+    if groq_key:
+        print("[Groq] Calling Groq API for greetings...")
+        url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {groq_key}",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "response_format": {"type": "json_object"}
+        }
+
+        try:
+            response = requests.post(url, json=data, headers=headers, timeout=10)
+            if response.status_code == 200:
+                result = response.json()
+                content = result['choices'][0]['message']['content']
+                
+                # Cache response
+                cache[cache_key] = content
+                save_cache(cache)
+                
+                parsed = parse_greetings(content)
+                if parsed:
+                    greetings = parsed
+                    source = "groq-ai"
+            else:
+                print(f"[Groq ERROR] Groq API Error: {response.status_code} - {response.text}")
+        except Exception as e:
+            print(f"[Groq ERROR] Connection error calling Groq: {e}")
+
+    # Fallback to Gemini if Groq is not configured or fails
     if not greetings:
-        print("⚠️ Using fallback greeting templates (API failed)")
+        print("[Gemini] Calling Gemini API for greetings...")
+        # Since we might have switched to Gemini, use the Gemini cache key for Gemini API
+        gemini_cache_key = f"gemini_greeting_{festival_name}_{tone}"
+        
+        # Check Gemini cache first
+        if gemini_cache_key in cache:
+            print(f"[Cache] Using cached Gemini result for: {gemini_cache_key}")
+            cached_greetings = parse_greetings(cache[gemini_cache_key])
+            if cached_greetings:
+                return {
+                    "success": True,
+                    "messages": cached_greetings,
+                    "source": "gemini-ai"
+                }
+
+        json_str = generate_text_content(prompt, gemini_cache_key)
+        if json_str:
+            parsed = parse_greetings(json_str)
+            if parsed:
+                greetings = parsed
+                source = "gemini-ai"
+
+    # Global fallback templates
+    if not greetings:
+        print("[Warning] Using fallback greeting templates (AI failed)")
         greetings = random.sample(FALLBACK_GREETINGS, 3)
         greetings = [g.replace("Festival", festival_name) for g in greetings]
+        source = "fallback"
 
     return {
         "success": True,
         "messages": greetings,
-        "source": "gemini-ai" if json_str else "fallback"
+        "source": source
     }
 
 

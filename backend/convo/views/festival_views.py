@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 import traceback
+import importlib
+import convo.operations.festival_ops
 
 # Robust import from festival_ops
 try:
@@ -43,6 +45,10 @@ def gemini_festivals_view(request):
     if request.method != "GET":
         return JsonResponse({"error": "Method not allowed"}, status=405)
     try:
+        # Dynamically reload module to pick up changes without server restart
+        importlib.reload(convo.operations.festival_ops)
+        from convo.operations.festival_ops import get_gemini_festivals
+
         year = request.GET.get('year')
         month = request.GET.get('month')
         if year:
@@ -58,6 +64,10 @@ def greeting_gen_view(request):
     if request.method != "POST":
         return JsonResponse({"error": "Method not allowed"}, status=405)
     try:
+        # Dynamically reload module to pick up changes without server restart
+        importlib.reload(convo.operations.festival_ops)
+        from convo.operations.festival_ops import generate_smart_greeting
+
         data = json.loads(request.body)
         festival_name = data.get('festival_name')
         tone = data.get('tone', 'Happy')

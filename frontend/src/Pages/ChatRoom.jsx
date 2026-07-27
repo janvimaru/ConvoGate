@@ -104,7 +104,7 @@ const ChatRoom = () => {
           const key = `notified-${roomId}-${festivalRes.data.festival_id}`;
           if (!sessionStorage.getItem(key)) {
             setToast({
-              title: `🎉 ${festivalRes.data.name} is coming!`,
+              title: `${festivalRes.data.name} is coming!`,
               message: `${festivalRes.data.name} is in ${festivalRes.data.days_until} days. Preparation time!`,
               type: 'info'
             });
@@ -334,9 +334,18 @@ const ChatRoom = () => {
   };
 
   /* ================= AUTO SCROLL ================= */
-  useEffect(() => {
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
   }, [messages, messagesLoading]);
+
+  useEffect(() => {
+    window.addEventListener("scroll-chat-to-bottom", scrollToBottom);
+    return () => window.removeEventListener("scroll-chat-to-bottom", scrollToBottom);
+  }, []);
 
   const handleMediaClick = (url, type) => {
     setSelectedMedia({ url, type });
@@ -490,7 +499,7 @@ const ChatRoom = () => {
 
 
 
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto px-6 pt-4 pb-4 flex flex-col space-y-4 custom-scrollbar">
 
             {/* SKELETON LOADER FOR MESSAGES */}
             {messagesLoading && messages.length === 0 && (
@@ -558,7 +567,7 @@ const ChatRoom = () => {
                 onStar={handleStar}
               />
             ))}
-            <div ref={messagesEndRef} />
+             <div ref={messagesEndRef} className="h-2" />
           </div>
 
           <ChatInput

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { globalSearchAPI } from '../Utils/api';
 import { API_BASE } from '../Utils/constants';
-import { Search, User, MessageSquare, Hash, ArrowLeft, Loader2 } from 'lucide-react';
+import { Search, User, MessageSquare, Hash, ArrowLeft, Loader2, Lock, Globe } from 'lucide-react';
 
 const SearchResults = () => {
     const location = useLocation();
@@ -199,9 +199,16 @@ const SearchResults = () => {
                                         <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                                             {room.name?.[0]?.toUpperCase()}
                                         </div>
-                                        <div className="min-w-0">
+                                        <div className="min-w-0 flex-1">
                                             <div className="font-medium text-[var(--text-primary)] truncate">{room.name}</div>
-                                            <div className="text-xs text-[var(--text-secondary)]">{room.is_private ? '🔒 Private' : '🌐 Public'} Room</div>
+                                            <div className="text-xs text-[var(--text-secondary)] flex items-center gap-1 mt-0.5">
+                                                {room.is_private ? (
+                                                    <Lock className="w-3 h-3 text-red-500 shrink-0" />
+                                                ) : (
+                                                    <Globe className="w-3 h-3 text-emerald-500 shrink-0" />
+                                                )}
+                                                <span>{room.is_private ? 'Private' : 'Public'} Room</span>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}

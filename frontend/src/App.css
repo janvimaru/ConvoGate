@@ -1,98 +1,98 @@
 :root {
   /* Light Theme - Clean Professional */
-  --bg-primary: #F7F8FA;
+  --bg-primary: #F8FAFC;
   --bg-secondary: #FFFFFF;
   --navbar-bg: #FFFFFF;
   --sidebar-bg: #FFFFFF;
   --input-bg: #FFFFFF;
   --dropdown-bg: rgba(255, 255, 255, 0.98);
   --surface-light: #FFFFFF;
-  --surface-hover: #F0F2F5;
-  --surface-active: #E4E7EB;
+  --surface-hover: #F1F5F9;
+  --surface-active: #E2E8F0;
 
-  --text-primary: #1C1F27;
-  --text-secondary: #4A5568;
-  --text-tertiary: #718096;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
 
   --border-light: #E2E8F0;
 
-  /* Violet Brand Palette */
-  --primary: #6B5AED;
-  --primary-gradient-from: #8B5CF6;
-  --primary-gradient-to: #4C1D95;
-  --primary-shadow: rgba(139, 92, 246, 0.3);
+  /* Premium Indigo Palette */
+  --primary: #4F46E5;
+  --primary-gradient-from: #6366F1;
+  --primary-gradient-to: #4F46E5;
+  --primary-shadow: rgba(99, 102, 241, 0.15);
 
-  --brand-gradient-from: #8B5CF6;
-  --brand-gradient-to: #4C1D95;
+  --brand-gradient-from: #6366F1;
+  --brand-gradient-to: #4F46E5;
 
   /* Message Bubbles - Clean & Solid */
-  --own-message-from: #6B5AED;
-  --own-message-to: #6B5AED;
+  --own-message-from: #4F46E5;
+  --own-message-to: #4F46E5;
   /* Solid color for professionalism */
-  --other-message-bg: #F0F2F5;
+  --other-message-bg: #F1F5F9;
 
   /* Room Cards - Subtle Indication */
-  --room-avatar-from: #8B5CF6;
-  --room-avatar-to: #4C1D95;
-  --active-room-from: #8B5CF6;
-  --active-room-to: #4C1D95;
-  --active-room-shadow: rgba(139, 92, 246, 0.2);
+  --room-avatar-from: #6366F1;
+  --room-avatar-to: #4F46E5;
+  --active-room-from: #6366F1;
+  --active-room-to: #4F46E5;
+  --active-room-shadow: rgba(99, 102, 241, 0.1);
 
   /* Avatar */
-  --avatar-from: #846ED8;
-  --avatar-to: #6B5AED;
+  --avatar-from: #6366F1;
+  --avatar-to: #4F46E5;
 
   /* Shadows */
-  --shadow-heavy: rgba(0, 0, 0, 0.1);
+  --shadow-heavy: rgba(15, 23, 42, 0.05);
 }
 
 [data-theme="dark"] {
   /* Dark Theme - Charcoal Elegance */
-  --bg-primary: #1A1D21;
-  --bg-secondary: #2C3138;
-  --navbar-bg: #1A1D21;
-  --sidebar-bg: #22262B;
-  --input-bg: #2C3138;
-  --dropdown-bg: #2C3138;
-  --surface-light: #2C3138;
-  --surface-hover: #363C45;
-  --surface-active: #404852;
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --navbar-bg: #0F172A;
+  --sidebar-bg: #1E293B;
+  --input-bg: #1E293B;
+  --dropdown-bg: #1E293B;
+  --surface-light: #1E293B;
+  --surface-hover: #334155;
+  --surface-active: #475569;
 
-  --text-primary: #E8EAED;
-  --text-secondary: #A0AEC0;
-  --text-muted: #718096;
-  --text-tertiary: #4A5568;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-tertiary: #475569;
 
-  --border-light: #363C45;
+  --border-light: #334155;
 
-  /* Colors */
-  --primary: #6B5AED;
-  --primary-gradient-from: #8B5CF6;
-  --primary-gradient-to: #4C1D95;
-  --primary-shadow: rgba(0, 0, 0, 0.5);
+  /* Indigo Dark Palette */
+  --primary: #6366F1;
+  --primary-gradient-from: #818CF8;
+  --primary-gradient-to: #4F46E5;
+  --primary-shadow: rgba(0, 0, 0, 0.3);
 
-  --brand-gradient-from: #8B5CF6;
-  --brand-gradient-to: #4C1D95;
+  --brand-gradient-from: #818CF8;
+  --brand-gradient-to: #4F46E5;
 
   /* Message Bubbles */
-  --own-message-from: #6B5AED;
-  --own-message-to: #6B5AED;
+  --own-message-from: #6366F1;
+  --own-message-to: #6366F1;
   /* Solid color for professionalism */
-  --other-message-bg: #2C3138;
+  --other-message-bg: #1E293B;
 
   /* Room Cards */
-  --room-avatar-from: #8B5CF6;
-  --room-avatar-to: #4C1D95;
-  --active-room-from: #8B5CF6;
-  --active-room-to: #4C1D95;
-  --active-room-shadow: rgba(0, 0, 0, 0.5);
+  --room-avatar-from: #818CF8;
+  --room-avatar-to: #4F46E5;
+  --active-room-from: #818CF8;
+  --active-room-to: #4F46E5;
+  --active-room-shadow: rgba(0, 0, 0, 0.3);
 
   /* Avatar */
-  --avatar-from: #846ED8;
-  --avatar-to: #6B5AED;
+  --avatar-from: #818CF8;
+  --avatar-to: #6366F1;
 
   /* Shadows */
-  --shadow-heavy: rgba(0, 0, 0, 0.4);
+  --shadow-heavy: rgba(0, 0, 0, 0.3);
 }
 
 

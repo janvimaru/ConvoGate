@@ -246,7 +246,7 @@ const ChatInput = ({
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
         >
-            <div className="p-4 max-w-5xl mx-auto">
+            <div className="p-3 px-6 w-full">
                 {/* File Preview */}
                 {previewFile && (
                     <div className="mb-2 p-3 bg-[var(--message-received-bg)] rounded-xl border border-[var(--border-light)] shadow-sm flex items-center justify-between animate-in zoom-in-95 duration-200">
@@ -304,24 +304,24 @@ const ChatInput = ({
                 {aiSuggestions.length > 0 && (
                     <div className="mb-4 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
                         <div className="flex items-center gap-2 px-1 mb-1">
-                            <Sparkles className="h-4 w-4 text-orange-400" />
-                            <span className="text-white font-black text-xs uppercase tracking-widest">Gemini Suggestions</span>
+                            <Sparkles className="h-4 w-4 text-orange-500" />
+                            <span className="text-slate-500 font-bold text-xs uppercase tracking-wider">AI Greetings Suggestions</span>
                         </div>
                         <div className="flex flex-col gap-2.5">
                             {aiSuggestions.map((g, i) => (
                                 <button
                                     key={i}
                                     onClick={() => handleInsertGreeting(g)}
-                                    className="text-left w-full p-4 bg-[#1a1c2e] border border-white/5 rounded-[20px] hover:border-orange-500/40 transition-all group relative overflow-hidden shadow-2xl"
+                                    className="text-left w-full p-4 bg-white border border-slate-200/80 rounded-[20px] hover:border-orange-500/40 hover:shadow-lg transition-all group relative overflow-hidden shadow-sm"
                                 >
-                                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-rose-500 opacity-20 group-hover:opacity-100 transition-opacity" />
-                                    <p className="text-slate-300 text-sm leading-relaxed font-medium">{g}</p>
+                                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-500 to-rose-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+                                    <p className="text-slate-700 text-sm leading-relaxed font-medium">{g}</p>
                                 </button>
                             ))}
                         </div>
                         <button
                             onClick={() => setAiSuggestions([])}
-                            className="self-center mt-2 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] hover:text-white transition-colors"
+                            className="self-center mt-2 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-slate-700 transition-colors"
                         >
                             Dismiss Suggestions
                         </button>
@@ -361,30 +361,30 @@ const ChatInput = ({
                                     }
                                     disabled={isUploading}
                                     rows={1}
-                                    className={`w-full pl-6 pr-56 py-4 rounded-2xl bg-[var(--input-bg)]/50 border ${isListening
+                                    className={`w-full pl-4 pr-44 py-2.5 rounded-xl bg-[var(--input-bg)]/50 border ${isListening
                                         ? 'border-amber-500 ring-2 ring-amber-500/20'
                                         : 'border-[var(--border-light)]'
-                                        } text-[var(--text-primary)] placeholder-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:border-[var(--primary)] resize-none transition-all duration-300 overflow-y-auto shadow-inner custom-scrollbar`}
-                                    style={{ minHeight: "58px", maxHeight: "150px" }}
+                                        } text-xs text-[var(--text-primary)] placeholder-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:border-[var(--primary)] resize-none transition-all duration-300 overflow-y-auto shadow-inner custom-scrollbar`}
+                                    style={{ minHeight: "42px", maxHeight: "150px" }}
                                 />
 
                                 {/* Action Buttons */}
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center space-x-1.5 px-2">
+                                <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center space-x-1.5 px-1">
                                     {/* Attachment Menu Wrapper */}
                                     <div className="relative">
                                         <button
                                             type="button"
                                             onClick={() => setAttachmentMenuOpen(!attachmentMenuOpen)}
                                             disabled={isUploading}
-                                            className={`p-2.5 rounded-xl transition-all duration-200 active:scale-90 ${attachmentMenuOpen ? 'bg-[var(--primary)] text-white rotate-45' : 'hover:bg-[var(--primary)]/10 text-[var(--text-secondary)] hover:text-[var(--primary)]'}`}
+                                            className={`p-1.5 rounded-full transition-all duration-200 active:scale-90 ${attachmentMenuOpen ? 'bg-indigo-600 text-white rotate-45' : 'hover:bg-[var(--primary)]/10 text-[var(--text-secondary)] hover:text-[var(--primary)]'}`}
                                             title="Attachments"
                                         >
-                                            <Plus className="h-5 w-5" />
+                                            <Plus className="h-4.5 w-4.5" />
                                         </button>
 
                                         {/* Attachment Dropdown */}
                                         {attachmentMenuOpen && (
-                                            <div className="absolute bottom-full mb-2 left-0 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-in slide-in-from-bottom-2 duration-200 z-20">
+                                            <div className="absolute bottom-full mb-2 right-0 w-48 bg-[var(--dropdown-bg)] rounded-xl shadow-xl border border-[var(--border-light)] overflow-hidden animate-in slide-in-from-bottom-2 duration-200 z-20">
                                                 <div className="p-1">
                                                     <button
                                                         type="button"
@@ -392,7 +392,7 @@ const ChatInput = ({
                                                             setAttachmentMenuOpen(false);
                                                             handleFileClick();
                                                         }}
-                                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                                                        className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
                                                     >
                                                         <div className="p-1.5 bg-blue-100 text-blue-600 rounded-lg">
                                                             <Paperclip className="h-4 w-4" />
@@ -403,9 +403,9 @@ const ChatInput = ({
                                                         type="button"
                                                         onClick={() => {
                                                             setAttachmentMenuOpen(false);
-                                                            handleFileClick(); // Re-using file handler for now, ideally separate image handler
+                                                            handleFileClick();
                                                         }}
-                                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                                                        className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
                                                     >
                                                         <div className="p-1.5 bg-purple-100 text-purple-600 rounded-lg">
                                                             <ImageIcon className="h-4 w-4" />
@@ -413,7 +413,7 @@ const ChatInput = ({
                                                         <span>Photos & Videos</span>
                                                     </button>
 
-                                                    <div className="my-1 border-t border-slate-100 dark:border-slate-700"></div>
+                                                    <div className="my-1 border-t border-[var(--border-light)]"></div>
 
                                                     <button
                                                         type="button"
@@ -421,7 +421,7 @@ const ChatInput = ({
                                                             setAttachmentMenuOpen(false);
                                                             setShowCalendar(true);
                                                         }}
-                                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                                                        className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
                                                     >
                                                         <div className="p-1.5 bg-orange-100 text-orange-600 rounded-lg">
                                                             <Calendar className="h-4 w-4" />
@@ -435,7 +435,7 @@ const ChatInput = ({
                                                             setAttachmentMenuOpen(false);
                                                             onOpenExpenseModal?.();
                                                         }}
-                                                        className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors"
+                                                        className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-[var(--text-primary)] hover:bg-[var(--surface-hover)] rounded-lg transition-colors"
                                                     >
                                                         <div className="p-1.5 bg-emerald-100 text-emerald-600 rounded-lg">
                                                             <CreditCard className="h-4 w-4" />
@@ -452,16 +452,16 @@ const ChatInput = ({
                                         type="button"
                                         onClick={toggleDictation}
                                         disabled={isUploading}
-                                        className={`p-2.5 rounded-xl transition-all duration-200 active:scale-90 ${isListening
+                                        className={`p-1.5 rounded-lg transition-all duration-200 active:scale-90 ${isListening
                                             ? "bg-amber-500/10 text-amber-500 animate-pulse ring-2 ring-amber-500/20"
                                             : "hover:bg-amber-500/10 text-slate-400 hover:text-amber-500"
                                             }`}
                                         title={isListening ? "Stop Listening" : "Voice to Text"}
                                     >
                                         {isListening ? (
-                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            <Loader2 className="h-4.5 w-4.5 animate-spin" />
                                         ) : (
-                                            <Mic className="h-5 w-5" />
+                                            <Mic className="h-4.5 w-4.5" />
                                         )}
                                     </button>
 
@@ -472,7 +472,7 @@ const ChatInput = ({
                                                 type="button"
                                                 onClick={() => setFestivalMenuOpen(!festivalMenuOpen)}
                                                 disabled={isUploading}
-                                                className={`p-2.5 rounded-xl transition-all duration-300 active:scale-90 relative overflow-hidden group/fest
+                                                className={`p-1.5 rounded-lg transition-all duration-300 active:scale-90 relative overflow-hidden group/fest
                                                     ${activeFestival.status === "active"
                                                         ? (festivalMenuOpen
                                                             ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
@@ -492,9 +492,9 @@ const ChatInput = ({
                                                 )}
 
                                                 {activeFestival.status === "active" ? (
-                                                    <Sparkles className="h-5 w-5 relative z-10" />
+                                                    <Sparkles className="h-4.5 w-4.5 relative z-10" />
                                                 ) : (
-                                                    <Loader2 className="h-5 w-5 relative z-10" />
+                                                    <Loader2 className="h-4.5 w-4.5 relative z-10" />
                                                 )}
 
                                                 {/* Active Badge */}
@@ -529,12 +529,12 @@ const ChatInput = ({
                                     <button
                                         type="submit"
                                         disabled={(!message.trim() && !previewFile) || isUploading}
-                                        className={`p-3 rounded-xl transition-all duration-300 active:scale-95 ${(message.trim() || previewFile) && !isUploading
+                                        className={`p-1.5 rounded-lg transition-all duration-300 active:scale-95 ${(message.trim() || previewFile) && !isUploading
                                             ? "bg-gradient-to-br from-[var(--primary)] to-[var(--primary-dark)] text-white shadow-lg shadow-[var(--primary)]/20 hover:shadow-[var(--primary)]/40 hover:-translate-y-0.5"
                                             : "bg-[var(--surface-hover)] text-[var(--text-tertiary)] cursor-not-allowed opacity-50"
                                             }`}
                                     >
-                                        <Send className="h-5 w-5" />
+                                        <Send className="h-4.5 w-4.5" />
                                     </button>
                                 </div>
                             </>
@@ -616,9 +616,19 @@ const FestivalDropdown = ({ festival, onClose, onInsertGreeting, onOpenContribut
                 : 'bg-gradient-to-r from-indigo-500 to-purple-500'
                 }`}>
                 <div>
-                    <p className="text-xs font-bold uppercase tracking-wider opacity-90">
-                        {festival.status === 'active' ? '🎉 Happening Now' : `⏳ In ${festival.days_until} Days`}
-                    </p>
+                    <div className="flex items-center gap-1 opacity-90 text-[10px] font-bold uppercase tracking-wider">
+                        {festival.status === 'active' ? (
+                            <>
+                                <Sparkles className="w-3 h-3 text-pink-200 shrink-0" />
+                                <span>Happening Now</span>
+                            </>
+                        ) : (
+                            <>
+                                <Calendar className="w-3 h-3 text-indigo-200 shrink-0" />
+                                <span>In {festival.days_until} Days</span>
+                            </>
+                        )}
+                    </div>
                     <p className="font-bold text-sm">{festival.name}</p>
                 </div>
                 <button

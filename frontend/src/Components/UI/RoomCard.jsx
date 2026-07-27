@@ -7,29 +7,29 @@ const RoomCard = ({ room, isActive, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className={`w-full p-4 rounded-xl transition-all duration-200 group cursor-pointer
+      className={`w-full p-2.5 md:p-3 rounded-xl transition-all duration-150 group cursor-pointer
         ${isActive
           ? 'bg-[var(--active-room-bg)] shadow-sm'
-          : 'bg-[var(--surface-light)] hover:bg-[var(--surface-hover)] border border-transparent hover:border-[var(--violet-100)] dark:hover:border-[var(--violet-900)] hover:scale-[1.01] hover:shadow-sm'
+          : 'bg-[var(--surface-light)] hover:bg-[var(--surface-hover)] border border-[var(--border-light)]'
         }`}
     >
       <div className="flex items-center justify-between">
         {/* LEFT SIDE */}
-        <div className="flex items-center space-x-3 flex-1 min-w-0">
+        <div className="flex items-center space-x-2.5 flex-1 min-w-0">
           {/* Avatar */}
           <div className="relative flex-shrink-0">
             <div
-              className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-all duration-300"
+              className="w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center transition-all duration-300"
               style={isActive ? { background: 'var(--violet-500)' } : { background: getRoomTypeGradient(room) }}
             >
-              <span className="text-base md:text-lg font-semibold text-white">
+              <span className="text-xs md:text-sm font-semibold text-white">
                 {(room.name || 'Room').charAt(0).toUpperCase()}
               </span>
             </div>
 
             {room.isPrivate && !isActive && (
-              <div className="absolute -bottom-1 -right-1 p-1 bg-[var(--surface-light)] rounded-full">
-                <Lock className="h-2.5 w-2.5 text-[var(--text-tertiary)]" />
+              <div className="absolute -bottom-1 -right-1 p-0.5 bg-[var(--surface-light)] rounded-full">
+                <Lock className="h-2 w-2 text-[var(--text-tertiary)]" />
               </div>
             )}
           </div>
@@ -38,7 +38,7 @@ const RoomCard = ({ room, isActive, onClick }) => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between">
               <h3
-                className={`font-semibold truncate text-sm md:text-base
+                className={`font-semibold truncate text-xs md:text-sm
                   ${isActive ? 'text-[var(--active-room-text)]' : 'text-[var(--text-primary)]'}`}
               >
                 {room.name}
@@ -50,15 +50,15 @@ const RoomCard = ({ room, isActive, onClick }) => {
             </div>
 
             <p
-              className={`text-xs md:text-sm truncate font-medium
+              className={`text-[11px] md:text-xs truncate font-medium
                 ${isActive ? 'text-[var(--active-room-text)] opacity-80' : 'text-[var(--text-secondary)]'}`}
             >
               {room.lastMessage || room.description || 'No messages yet'}
             </p>
 
-            <div className="flex items-center space-x-3 mt-1">
+            <div className="flex items-center space-x-3 mt-0.5">
               <span
-                className={`text-xs
+                className={`text-[10px]
                   ${isActive ? 'text-[var(--active-room-text)] opacity-60' : 'text-[var(--text-tertiary)]'}`}
               >
                 {room.time || 'Just now'}
@@ -66,11 +66,11 @@ const RoomCard = ({ room, isActive, onClick }) => {
 
               {room.memberCount !== undefined && (
                 <div
-                  className={`flex items-center space-x-1
+                  className={`flex items-center space-x-0.5
                     ${isActive ? 'text-[var(--active-room-text)] opacity-60' : 'text-[var(--text-tertiary)]'}`}
                 >
-                  <Users className="h-3 w-3" />
-                  <span className="text-xs">{room.memberCount}</span>
+                  <Users className="h-2.5 w-2.5" />
+                  <span className="text-[10px]">{room.memberCount}</span>
                 </div>
               )}
             </div>
@@ -85,14 +85,14 @@ const RoomCard = ({ room, isActive, onClick }) => {
             e.stopPropagation();
 
           }}
-          className={`p-1.5 md:p-2 rounded-lg transition
+          className={`p-1 rounded-lg transition
             md:opacity-0 md:group-hover:opacity-100
             ${isActive
               ? 'hover:bg-black/5 text-[var(--active-room-text)]'
               : 'hover:bg-[var(--surface-active)] text-[var(--text-tertiary)]'
             }`}
         >
-          <MoreVertical className="h-4 w-4" />
+          <MoreVertical className="h-3.5 w-3.5" />
         </button>
       </div>
     </div>

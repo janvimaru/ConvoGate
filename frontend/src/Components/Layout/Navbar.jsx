@@ -414,7 +414,7 @@ const Navbar = ({ onMenuClick }) => {
 
             <nav className="w-full bg-[var(--navbar-bg)] border-b border-[var(--border-light)] transition-all duration-300">
                 {/* ... navbar content ... */}
-                <div className="px-6 py-3">
+                <div className="px-4 py-2">
                     <div className="flex items-center justify-between">
                         {/* Branding - Clickable to Dashboard */}
                         <div
@@ -427,27 +427,27 @@ const Navbar = ({ onMenuClick }) => {
                                     e.stopPropagation(); // Prevent navigation when opening menu
                                     onMenuClick();
                                 }}
-                                className="mr-4 md:hidden p-2 rounded-xl text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)] transition-colors"
+                                className="mr-3 md:hidden p-1.5 rounded-lg text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)] transition-colors"
                             >
-                                <Menu className="h-6 w-6" />
+                                <Menu className="h-5 w-5" />
                             </button>
 
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-2.5">
                                 {/* Logo - ALWAYS shows "CG" */}
-                                 <div className="w-10 h-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
+                                 <div className="w-8.5 h-8.5 rounded-xl overflow-hidden" style={{ boxShadow: '0 2px 10px rgba(139, 92, 246, 0.35)', border: '1.5px solid rgba(139, 92, 246, 0.4)', background: '#0d0a1a' }}>
                                      <img src={LOGO_BASE64} alt="CG" className="w-full h-full" style={{ objectFit: 'cover', objectPosition: 'center 38%', transform: 'scale(1.4)' }} />
                                  </div>
-                                <h1 className="text-xl font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
+                                <h1 className="text-base font-semibold bg-gradient-to-r from-[var(--brand-gradient-from)] to-[var(--brand-gradient-to)] bg-clip-text text-transparent">
                                     ConvoGate
                                 </h1>
                             </div>
                         </div>
 
                         {/* Search Bar */}
-                        <div className="flex-1 max-w-2xl mx-8">
+                        <div className="flex-1 max-w-xl mx-6">
                             <div className="relative flex items-center">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <Search className="h-4 w-4 text-[var(--text-tertiary)]" />
+                                    <Search className="h-3.5 w-3.5 text-[var(--text-tertiary)]" />
                                 </div>
                                 <input
                                     type="text"
@@ -459,7 +459,7 @@ const Navbar = ({ onMenuClick }) => {
                                         }
                                     }}
                                     placeholder="Search..."
-                                    className="w-full pl-10 pr-14 py-2.5 rounded-xl bg-[var(--input-bg)] border border-[var(--border-light)] text-[var(--text-primary)] placeholder-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all duration-200"
+                                    className="w-full pl-9 pr-11 py-1.5 rounded-lg bg-[var(--input-bg)] border border-[var(--border-light)] text-xs text-[var(--text-primary)] placeholder-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all duration-200"
                                 />
                                 <button
                                     onClick={() => {
@@ -467,27 +467,26 @@ const Navbar = ({ onMenuClick }) => {
                                             navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
                                         }
                                     }}
-                                    className="absolute right-2 p-2 text-white rounded-lg hover:opacity-90 transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md hover:scale-[1.05] active:scale-95"
-                                    style={{ background: 'var(--gradient-primary)' }}
+                                    className="absolute right-1.5 p-1.5 text-white rounded-md bg-indigo-600 hover:bg-indigo-700 transition-colors duration-150 flex items-center justify-center shadow-sm"
                                     title="Search"
                                 >
-                                    <Search className="h-4 w-4" />
+                                    <Search className="h-3.5 w-3.5" />
                                 </button>
                             </div>
                         </div>
 
                         {/* Right Side Actions */}
-                        <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-2.5">
                             {/* Theme Toggle */}
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 rounded-xl bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors duration-200 group"
+                                className="p-1.5 rounded-lg bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors duration-200 group"
                                 aria-label="Toggle theme"
                             >
                                 {theme === 'light' ? (
-                                    <Moon className="h-5 w-5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
+                                    <Moon className="h-4.5 w-4.5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
                                 ) : (
-                                    <Sun className="h-5 w-5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
+                                    <Sun className="h-4.5 w-4.5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
                                 )}
                             </button>
 
@@ -495,17 +494,17 @@ const Navbar = ({ onMenuClick }) => {
                             <div className="relative">
                                 <button
                                     onClick={handleToggleNotifications}
-                                    className="p-2 rounded-xl bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors duration-200 relative group"
+                                    className="p-1.5 rounded-lg bg-[var(--surface-hover)] hover:bg-[var(--surface-active)] transition-colors duration-200 relative group"
                                     aria-label="Notifications"
                                 >
-                                    <Bell className="h-5 w-5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
+                                    <Bell className="h-4.5 w-4.5 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors" />
                                     {getUnreadCount() > 0 && (
                                         <NotificationBadge count={getUnreadCount()} className="absolute -top-1 -right-1" />
                                     )}
                                 </button>
 
                                 {showNotifications && (
-                                    <div className="absolute right-0 top-12 w-96">
+                                    <div className="absolute right-0 top-10 w-96">
                                         <NotificationPanel
                                             notifications={notifications}
                                             onClose={() => setShowNotifications(false)}
